@@ -10,10 +10,25 @@ public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
+	// 게시판 리스트
 	@RequestMapping(value = "board/BoardList")
 	public String doBoardList() {
 		logger.info("BoardList");
 		
 		return "board/BoardList";
 	}
+	
+	// 게시판 글 쓰기
+	@RequestMapping(value = "board/writeBoard")
+	public String doWriteForm() {
+		return "board/writeBoard";
+	}
+	
+	// 상세 페이지 보기
+	@RequestMapping(value = "board/ContentBoard")
+	public String doContent() {
+		return "board/ContentBoard";
+	}
+	
+
 }
