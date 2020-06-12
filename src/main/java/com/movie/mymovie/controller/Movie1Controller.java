@@ -5,24 +5,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Movie1Controller {
+	@RequestMapping(value="/movieInfo")
+	public String selectMovieInfo() {
+		return "main/movieInfo";
+	}
 	@RequestMapping(value="/selectPlace")
 	public String selectPlace() {
-		return "main/movieReservation/selectPlace";
+		return "movieReservation/selectPlace";
 	}
 	@RequestMapping(value="/selectDateTime")
 	public String selectDateTime() {
-		return "main/movieReservation/selectDateTime";
+		return "movieReservation/selectDateTime";
 	}
 	@RequestMapping(value="/selectSeat")
 	public String selectSeat() {
-		return "main/movieReservation/selectSeat";
+		return "movieReservation/selectSeat";
 	}
 	@RequestMapping(value="/pay")
 	public String pay() {
-		return "main/movieReservation/pay";
+		return "movieReservation/pay";
 	}
 	@RequestMapping(value="/reservationConfirm")
 	public String reservationConfirm() {
-		return "main/movieReservation/reservationConfirm";
+		return "movieReservation/reservationConfirm";
 	}
+	@RequestMapping(value="/headerCheck")
+	public String headerCheck() {
+		return "header";
+	}
+	
 }
