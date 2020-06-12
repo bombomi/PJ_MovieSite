@@ -69,28 +69,7 @@
 
     <div class="site-section site-portfolio">
       <div class="container">
-<<<<<<< HEAD
-        <div class="row mb-5 align-items-center">
-          <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-            <h2>Movie reservation & community site</h2>
-            <p class="mb-0">재산이 많고 지위가 높으며 귀하게 되어서 세상에 드러나 온갖 영광을 누림.
-            	고객의 풍부한 영화경험을 지향합니다 :)
-            </p>
-          </div>
-          <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
-            <div id="filters" class="filters">
-              <a href="#" data-filter="*" class="active">home</a>
-              <a href="#" data-filter=".web">Login</a>
-              <a href="#" data-filter=".design">Community</a>
-              <a href="#" data-filter=".branding">My Page</a>
-            </div>
-          </div>
-        </div>
-=======
 
-        <!-- ++++++++++여기까지가 홈, 로그인, 마이페이지 등 (end)+++++++++ -->
-        <!-- ++++++++++영화 목록(start)++++++++++++++++++++++++_ -->
->>>>>>> branch 'master' of https://github.com/bombomi/PJ_MovieSite.git
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
             <a href="<%=contextPath %>/movieInfo" class="item-wrap fancybox">

@@ -19,11 +19,5 @@ public class AllMovieController {
 
 	
 	 
-	/*
-	 * public GuestbookDto selectGuestbook(int seq) {
-	 * 
-	 * 
-	 * }
-	 */
 	
 }
