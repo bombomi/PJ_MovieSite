@@ -9,28 +9,41 @@
 <style type="text/css">
 	table {
 	margin: auto;
+	width: 1000px;
+	
 }
 </style>
 </head>
 <body>
+<body>
+	<h2 align="center">게시판</h2>
+	
 	<table>
 		<tr>
-			<td>번호
-			<td>제목
-			<td>글쓴이
-			<td>조회수
-			<td>시간
+			<th colspan="6" align="center" style="height:25px"> 
+				글목록(글갯수: cnt) &nbsp;&nbsp;&nbsp;
+				<a href="writeBoard"> 글쓰기 </a>
+			</th>
 		</tr>
 		
 		<tr>
-			<td>1
-			<td>임시 데이터
-			<td>관리자
-			<td>1
-			<td>12:00
+			<th style="width:15%"> 글 번호 </th>
+			<th style="width:25%"> 글 제목 </th>
+			<th style="width:10%"> 작성자 </th>
+			<th style="width:15%"> 작성일 </th>
+			<th style="width:5%"> 조회수 </th>
 		</tr>
+		
+		
+		<tr>	
+			<td>글 번호 임시 데이터
+			<td><a href="ContentBoard">글 제목 임시 데이터
+			<td>작성자 임시 데이터
+			<td>작성일 임시 데이터
+			<td>조회수 임시 데이터
+		</tr>
+		
 	
-	</table>
-
+</body>
 </body>
 </html>
