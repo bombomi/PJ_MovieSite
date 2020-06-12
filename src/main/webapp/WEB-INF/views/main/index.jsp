@@ -98,7 +98,7 @@
           <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
             <div id="filters" class="filters">
               <a href="#" data-filter="*" class="active">home</a>
-              <a href="" data-filter=".web">Login</a>
+              <a href="#" data-filter=".web">Login</a>
               <a href="#" data-filter=".design">Community</a>
               <a href="#" data-filter=".branding">My Page</a>
             </div>
