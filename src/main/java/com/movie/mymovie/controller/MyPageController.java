@@ -7,24 +7,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MyPageController {
+	private final Logger log = LoggerFactory.getLogger(MyPageController.class);
 
 	// 인덱스
-	@RequestMapping(value = "/Myedit")
+	@RequestMapping(value = "/myPage/myPage")
+	public String index() {
+		log.debug("MyPageController - /myPage/myPage");
+		return "mypage/index";
+	}
+	
+	@RequestMapping(value = "/myPage/myEdit")
 	public String edit() {
+		log.debug("called ------------------------------------------------");
 		return "mypage/Myedit";
 	}
 
-	@RequestMapping(value = "/Mybooklist")
+	@RequestMapping(value = "/myPage/Mybooklist")
 	public String list() {
 		return "mypage/Mybooklist";
 	}
 
-	@RequestMapping(value = "/Mywriting")
+	@RequestMapping(value = "/myPage/Mywriting")
 	public String writing() {
 		return "mypage/Mywriting";
 	}
 
-	@RequestMapping(value = "/withdrawal")
+	@RequestMapping(value = "/myPage/withdrawal")
 	public String withdrawal() {
 		return "mypage/withdrawal";
 
