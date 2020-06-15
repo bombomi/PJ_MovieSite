@@ -86,6 +86,9 @@
 </style>
 </head>
 <body>
+	<div class="head">
+		<jsp:include page="../head.jsp"></jsp:include>
+	</div>
 	<div class="content">
 		<!-- 로그인 -->
 		<div class="userInput">
