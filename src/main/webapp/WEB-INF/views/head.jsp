@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%String contextPath=request.getContextPath(); %>  
 <html>
 <head>
@@ -20,8 +21,17 @@
           <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
             <div id="a" class="filters">
               <a href="<%=contextPath %>/main/index" data-filter="*" class="active">home</a>
+<<<<<<< HEAD
               <a href="<%=contextPath %>/login" >Login</a>
               <a href="<%=contextPath %>/BoardList">Community</a>
+=======
+              <%--
+              System.out.println("session : member = " + session.getAttribute("member"));
+               --%>
+              <c:if test = '<%= session.getAttribute("member") != null %>'><a href = "<%=contextPath%>/login/logout">Logout</a></c:if>
+              <c:if test = '<%= session.getAttribute("member") == null %>'><a href = "<%=contextPath%>/login">Login</a></c:if>
+              <a href="<%=contextPath %>/board/BoardList">Community</a>
+>>>>>>> branch 'master' of https://github.com/bombomi/PJ_MovieSite.git
               <a href="<%=contextPath %>/myPage/myPage" >My Page</a>
             </div>
           </div>

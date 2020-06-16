@@ -2,47 +2,51 @@ package com.movie.mymovie.dto;
 
 public class UserDto {
 
-	private String user_id;
-	private String user_nick;
-	private String user_pwd;
-	private String user_email;
-	private String user_email2;
-	private String user_pic;
+	private String member_id;
+	private String member_nick;
+	private String member_pwd;
+	private String member_email;
+	private String member_email2;
+	private String member_pic;
 	
-	public String getUser_id() {
-		return user_id;
+	
+	public String getMember_id() {
+		return member_id;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
-	public String getUser_nick() {
-		return user_nick;
+	public String getMember_nick() {
+		return member_nick;
 	}
-	public void setUser_nick(String user_nick) {
-		this.user_nick = user_nick;
+	public void setMember_nick(String member_nick) {
+		this.member_nick = member_nick;
 	}
-	public String getUser_pwd() {
-		return user_pwd;
+	public String getMember_pwd() {
+		return member_pwd;
 	}
-	public void setUser_pwd(String user_pwd) {
-		this.user_pwd = user_pwd;
+	public void setMember_pwd(String member_pwd) {
+		this.member_pwd = member_pwd;
 	}
-	public String getUser_email() {
-		return user_email;
+	public String getMember_email() {
+		return member_email;
 	}
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
 	}
-	public String getUser_email2() {
-		return user_email2;
+	public String getMember_email2() {
+		return member_email2;
 	}
-	public void setUser_email2(String user_email2) {
-		this.user_email2 = user_email2;
+	public void setMember_email2(String member_email2) {
+		this.member_email2 = member_email2;
 	}
-	public String getUser_pic() {
-		return user_pic;
+	public String getMember_pic() {
+		return member_pic;
 	}
-	public void setUser_pic(String user_pic) {
-		this.user_pic = user_pic;
+	public void setMember_pic(String member_pic) {
+		this.member_pic = member_pic;
 	}
+	
+	
+	
 }

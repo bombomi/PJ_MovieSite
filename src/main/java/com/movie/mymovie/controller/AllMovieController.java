@@ -15,5 +15,6 @@ public class AllMovieController {
 		logger.info("main/index");
 		return "main/index";
 	}
+	
 
 }
