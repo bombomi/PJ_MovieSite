@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AllMovieController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AllMovieController.class);
-	
+
 	@RequestMapping(value = "main/index")
 	public String doIndex() {
 		logger.info("main/index");
@@ -17,7 +17,4 @@ public class AllMovieController {
 	}
 	
 
-	
-	 
-	
 }
