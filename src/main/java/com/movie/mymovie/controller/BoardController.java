@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.movie.mymovie.service.BoardServiceImpl;
 import com.movie.mymovie.vo.BoardVO;
+import com.movie.mymovie.vo.ReplyVO;
 
 @Controller
 public class BoardController {
@@ -28,6 +29,7 @@ public class BoardController {
 	@RequestMapping(value = "/BoardList")
 	public String doBoardList(HttpServletRequest req, Model model) {
 		logger.info("url --> BoardList");
+		
 		service.boardList(req, model);
 		return "board/BoardList";
 	}
@@ -128,6 +130,13 @@ public class BoardController {
 		
 		service.modifyPro(req, model);
 		return "board/modifyPro";
+	}
+	
+	// 게시글 댓글 기능
+	@RequestMapping(value = "/list")
+	public String commentList(Model model){
+		
+		return "board/ContentBoard";
 	}
 	
 	

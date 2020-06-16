@@ -44,8 +44,8 @@ table {
 	<input type="hidden" name="pageNum" value="${pageNum}">
 	<table>
 		<tr>
-			<th colspan="6" align="center" style="height: 25px">글 목록(글 갯수:
-				${cnt}) &nbsp;&nbsp;&nbsp; <a href="writeBoard?pageNum=${pageNum}"> 글 쓰기 </a>
+			<th colspan="6" align="center" style="height: 25px">글 목록
+			(글 갯수:${cnt}) &nbsp;&nbsp;&nbsp; <a href="writeBoard?pageNum=${pageNum}"> 글 쓰기 </a>
 			</th>
 		</tr>
 
