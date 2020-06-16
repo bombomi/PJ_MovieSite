@@ -174,7 +174,19 @@
          <scope>test</scope>
       </dependency>
       <!-- ##### (추가) MyBatis : 종료 ##### -->
-      <!-- 여기까지 마이바티스 추가 -->      
+      <!-- 여기까지 마이바티스 추가 -->  
+      <!--  ajax 실행 위해 추가 부분 start--> 
+      		<dependency>
+
+<groupId>org.codehaus.jackson</groupId>
+
+<artifactId>jackson-mapper-asl</artifactId>
+
+<version>1.9.13</version>
+
+</dependency> 
+      <!--  ajax 실행 위해 추가 부분 end--> 
+  
    </dependencies>
     <build>
         <plugins>
