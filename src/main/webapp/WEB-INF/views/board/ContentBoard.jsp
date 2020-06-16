@@ -56,8 +56,10 @@
 	
 	<tr>
 		<th colspan="4">
-			 <input type="button" value="글수정" onclick="window.location='modifyForm?board_id=${dto.board_id}&pageNum=${pageNum}'">
-			<input type="button" value="글삭제" onclick="window.location='deleteForm?board_id=${dto.board_id}&pageNum=${pageNum}'">
+		<c:if test = '<%= session.getAttribute("member") != null %>'>
+             <input type="button" value="글수정" onclick="window.location='modifyForm?board_id=${dto.board_id}&pageNum=${pageNum}'">
+			<input type="button" value="글삭제" onclick="window.location='deleteForm?board_id=${dto.board_id}&pageNum=${pageNum}'"> 
+              </c:if>
 			<input type="button" value="목록보기" onclick="window.location='BoardList?pageNum=${pageNum}'">
 		</th>
 	</tr>

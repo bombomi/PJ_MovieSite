@@ -115,6 +115,7 @@ public class BoardServiceImpl implements BoardService {
 	// 글 상세 페이지
 	@Override
 	public void contentForm(HttpServletRequest req, Model model) {
+		String strId = (String) req.getSession().getAttribute("user_id");
 		int number = Integer.parseInt(req.getParameter("number"));
 		int board_id = Integer.parseInt(req.getParameter("board_id"));
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
@@ -129,6 +130,7 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("number", number);
 		model.addAttribute("dto", vo);
 		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("strId", strId);
 	}
 	
 	// 글 쓰기 처리 페이지
@@ -136,11 +138,13 @@ public class BoardServiceImpl implements BoardService {
 	public void writePro(HttpServletRequest req, Model model) {
 		BoardVO vo = new BoardVO();
 		
+		
 		// 글 쓰기 hidden 값으로 받아오기
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		/* vo.setBoard_id(Integer.parseInt(req.getParameter("board_id"))); */
 		
 		// 화면으로부터 입력받은 값
+		vo.setUser_id(req.getParameter("user_id"));
 		vo.setBoard_writer(req.getParameter("board_writer"));
 		vo.setBoard_title(req.getParameter("board_title"));
 		vo.setBoard_content(req.getParameter("board_content"));
