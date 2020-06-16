@@ -21,7 +21,7 @@
             <div id="a" class="filters">
               <a href="<%=contextPath %>/main/index" data-filter="*" class="active">home</a>
               <a href="<%=contextPath %>/login" >Login</a>
-              <a href="<%=contextPath %>/board/BoardList">Community</a>
+              <a href="<%=contextPath %>/BoardList">Community</a>
               <a href="<%=contextPath %>/myPage/myPage" >My Page</a>
             </div>
           </div>

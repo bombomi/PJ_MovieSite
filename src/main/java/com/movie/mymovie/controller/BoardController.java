@@ -67,16 +67,71 @@ public class BoardController {
 		model.addAttribute("dtos", boardVo);
 		System.out.println("boardVo" + boardVo);
 		
+		
 		if(boardVo != null) {
 			model.addAttribute("cnt", boardVo.size());
 			System.out.println("dtosSize" + boardVo.size());
 		}		
-		
-		
-		
 		return "board/BoardList";
-		
 	}
+	
+	// 게시판 삭제 확인
+	@RequestMapping(value = "/deleteForm")
+	public String deleteForm(HttpServletRequest req, Model model) {
+		logger.info("deleteForm 호출");
+		
+		int board_id = Integer.parseInt(req.getParameter("board_id"));
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		req.setAttribute("board_id", board_id);
+		req.setAttribute("pageNum", pageNum);
+		
+		return "board/deleteForm";
+	}
+	
+	// 게시판 삭제
+	@RequestMapping(value = "/deletePro")
+	public String deletePro(HttpServletRequest req, Model model) {
+		logger.info("url --> deletePro");
+		
+		service.deletePro(req, model);
+		return "board/deletePro";
+	}
+	
+	// 게시판 수정 확인
+	@RequestMapping(value = "/modifyForm")
+	public String modifyForm(HttpServletRequest req, Model model) {
+		logger.info("url -> modifyForm");
+		
+		int board_id = Integer.parseInt(req.getParameter("board_id"));
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		model.addAttribute("board_id", board_id);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "board/modifyForm";
+	}
+	
+	// 게시글 수정 페이지
+	@RequestMapping(value = "/modifyView")
+	public String modifyView(HttpServletRequest req, Model model) {
+		logger.info("url => modifyView");
+		
+		service.modifyView(req, model);
+		return "board/modifyView";
+	}
+	
+	// 게시글 수정 처리 페이지
+	@RequestMapping(value = "/modifyPro")
+	public String modifyPro(HttpServletRequest req, Model model) {
+		logger.info("url --> modifyPro");
+		
+		service.modifyPro(req, model);
+		return "board/modifyPro";
+	}
+	
+	
+
 	
 	
 	

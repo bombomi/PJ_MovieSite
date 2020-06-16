@@ -8,7 +8,15 @@
 <title>부귀영화 상세 페이지</title>
 </head>
 <body>
+
+<div class="head">
+	<jsp:include page="../head.jsp"></jsp:include>
+</div>
+
+
 <h2><center>상세 페이지</center></h2>
+<input type="hidden" name="pageNum" value="${pageNum}">
+<input type="hidden" name="number" value="${number}">
 <table align="center">
 	<tr>
 		<th style="width:150px"> 글 번호 </th>
@@ -48,12 +56,9 @@
 	
 	<tr>
 		<th colspan="4">
-			<%-- <input class="inputButton" type="button" value="글수정"
-				onclick="window.location='modifyForm?board_id=${dto.board_id}&pageNum=${pageNum}'">
-			<input class="inputButton" type="button" value="글삭제"
-				onclick="window.location='deleteForm?board_id=${dto.board_id}&pageNum=${pageNum}'"> --%>
-			<input class="inputButton" type="button" value="목록보기"
-				onclick="window.location='BoardList?pageNum=${pageNum}'">
+			 <input type="button" value="글수정" onclick="window.location='modifyForm?board_id=${dto.board_id}&pageNum=${pageNum}'">
+			<input type="button" value="글삭제" onclick="window.location='deleteForm?board_id=${dto.board_id}&pageNum=${pageNum}'">
+			<input type="button" value="목록보기" onclick="window.location='BoardList?pageNum=${pageNum}'">
 		</th>
 	</tr>
 </table>	

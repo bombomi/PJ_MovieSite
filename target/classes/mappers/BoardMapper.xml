@@ -47,5 +47,15 @@
 	<select id="searchWord" parameterType="java.util.HashMap" resultType="com.movie.mymovie.vo.BoardVO">
 		SELECT board_id, board_title, board_writer, reg_date, read_cnt FROM board WHERE board_title LIKE '%'||#{board_title}||'%' ORDER BY board_id DESC
 	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+		 DELETE FROM board WHERE board_id = #{board_id}
+	</delete>
+	
+	<!-- 게시판 업데이트 -->
+	<update id="updateBoard" parameterType="com.movie.mymovie.vo.BoardVO">
+		UPDATE board SET board_title=#{board_title}, board_content=#{board_content} WHERE board_id=#{board_id}
+	</update>
 		
 </mapper>

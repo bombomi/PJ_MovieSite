@@ -26,4 +26,12 @@ public interface BoardService {
 	// 게시판 조회
 	public List<BoardVO> searchWord(HashMap<String, String> paramMap);
 	
+	// 게시판 삭제
+	public void deletePro(HttpServletRequest req, Model model);
+	
+	// 글 수정 상세 페이지
+	public void modifyView(HttpServletRequest req, Model model);
+	
+	// 글 수정 처리 페이지
+	public void modifyPro(HttpServletRequest req, Model model);
 }

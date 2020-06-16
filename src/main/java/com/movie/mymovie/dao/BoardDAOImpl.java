@@ -48,7 +48,7 @@ public class BoardDAOImpl implements BoardDAO {
 		return dao.insertBoard(vo);
 	}
 	
-	// 방명록 조회
+	// 게시글 조회
 	@Override
 	public List<BoardVO> searchWord(HashMap<String, String> paramMap) {
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
@@ -57,5 +57,27 @@ public class BoardDAOImpl implements BoardDAO {
 		System.out.println("dppdp " + boardList);
 		return boardList;
 	}
+	
+	// 게시판 삭제
+	@Override
+	public int deleteBoard(int board_id) {
+		
+		int deleteCnt = 0;
+		
+		// 상세페이지 조회
+		BoardVO vo = getArticle(board_id);
+		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
+		deleteCnt = dao.deleteBoard(board_id);
+		
+		return deleteCnt;
+	}
+	
+	// 글 수정 처리
+	@Override
+	public int updateBoard(BoardVO vo) {
+		 return sqlSession.update("com.movie.mymovie.dao.BoardDAO.updateBoard", vo);
+	}
+	
+
 
 }

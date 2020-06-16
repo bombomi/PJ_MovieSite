@@ -12,6 +12,8 @@
 	System.out.println("boardList : " + list.size());
 	
 %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,9 +33,15 @@ table {
 </head>
 <body>
 <body>
+
+	<div class="head">
+		<jsp:include page="../head.jsp"></jsp:include>
+	</div>
+
 	<h2 align="center">게시판</h2>
 	
 	<form action="<%=contextPath %>/searchWord" method="post">
+	<input type="hidden" name="pageNum" value="${pageNum}">
 	<table>
 		<tr>
 			<th colspan="6" align="center" style="height: 25px">글 목록(글 갯수:

@@ -23,8 +23,14 @@ public interface BoardDAO {
 	// 글 쓰기 처리
 	public int insertBoard(BoardVO vo);
 	
-	
-	// 방명록 상세 조회
+	// 게시글 상세 조회
 	public List<BoardVO> searchWord(HashMap<String, String> paramMap);
+	
+	// 게시판 삭제
+	public int deleteBoard(int board_id);
+	
+	// 글 수정 처리
+	public int updateBoard(BoardVO vo);
+	
 
 }

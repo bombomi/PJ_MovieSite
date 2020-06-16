@@ -169,4 +169,51 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> searchWord(HashMap<String, String> paramMap) {
 		return dao.searchWord(paramMap);
 	}
+	
+	// 게시판 삭제
+	@Override
+	public void deletePro(HttpServletRequest req, Model model) {
+		// deleteForm의 hidden으로부터 값을 받아온다.
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		int board_id = Integer.parseInt(req.getParameter("board_id"));
+		
+		int deleteCnt = dao.deleteBoard(board_id);
+		
+		model.addAttribute("deleteCnt", deleteCnt);
+		model.addAttribute("pageNum", pageNum);
+	}
+	
+	// 게시판 수정 상세 페이지
+	@Override
+	public void modifyView(HttpServletRequest req, Model model) {
+		int board_id = Integer.parseInt(req.getParameter("board_id"));
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		BoardVO vo =  new BoardVO();
+		vo = dao.getArticle(board_id);
+		model.addAttribute("dto", vo);
+		model.addAttribute("board_id", board_id);
+		model.addAttribute("pageNum", pageNum);
+	}
+	
+	// 게시판 수정 처리 페이지
+	@Override
+	public void modifyPro(HttpServletRequest req, Model model) {
+		int board_id = Integer.parseInt(req.getParameter("board_id"));
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		BoardVO vo = new BoardVO();
+		
+		vo.setBoard_id(board_id);
+		vo.setBoard_title(req.getParameter("board_title"));
+		vo.setBoard_content(req.getParameter("board_content"));
+		
+		int updateCnt = dao.updateBoard(vo);
+		
+		model.addAttribute("updateCnt", updateCnt);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("board_id", board_id);
+		
+	}
+
 }
