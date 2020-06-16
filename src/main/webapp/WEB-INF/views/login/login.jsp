@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -84,37 +85,69 @@
 		margin-bottom: 5px;
 	}
 </style>
+<!-- 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#submit").on("click", function(){
+			location.href='/login/islogin';
+		})
+		
+	})
+</script>-->
 </head>
 <body>
-	<div class="head">
+ 	<div class="head">
 		<jsp:include page="../head.jsp"></jsp:include>
-	</div>
+ 	</div>
 	<div class="content">
 		<!-- 로그인 -->
 		<div class="userInput">
-			<div class="user">
-				<form name="loginform" id = 'logininfo' method="post" action = "loginuser">
-					<input type="text" id="userID" name = "user_id" placeholder="ID">
-					<input type="password" id="userPwd" name = "user_pwd" placeholder="PASSWORD" >
+				<form name="loginform" id = 'logininfo' method="post" action = '<%=contextPath%>/login/islogin'>
+				<c:if test = "${member == null }">
+					<div>
+					<label for = "member_id"></label>
+					<input type="text" id="member_id" name = member_id placeholder="ID">
+					</div>
+					<div>
+					<label for = "member_pwd"></label>
+					<input type="password" id="member_pwd" name = "member_pwd" placeholder="PASSWORD" >
+					</div>
+					<div>
+				<!-- 로그인 후 갈 메인페이지 value -->
+					<button class="moveBT" type = "submit">Login</button>
+					</div>
+				</c:if>
+			<!-- 	<c:if test = "${member != null or member_id != null }">
+					<div>
+						<p>${member.getMember_id()}님 환영합니다.</p>
+						<button id = "logoutBtn" type = "button">Logout</button>
+					</div>
+				</c:if>
+				<c:if test = "${msg == false }">
+					<p style = "color:red;">아이디와 비밀번호를 확인해주세요.</p>
+				</c:if> -->
 				</form>
 			</div>
-			<div class="loginBtn">
-				<a href=""> <!-- 로그인 후 갈 메인페이지 value -->
-					<button class="moveBT" data-target="#logininfo" id="login">Login</button>
-				</a>
 			</div>
-		</div>
 		<!-- 로그인 끝 -->
 
 		<div class="jo_seBtn" id="ko_f_size_s">
 			
+<!-- 			<form name="signform" id = 'signform' method="get" action = "sign"></form> -->
+<%-- 			<a href = "<%= contextPath %>/lookForId">아이디 찾기</a>| --%>
+<%-- 			<a href = "<%= contextPath %>/lookForPwd">비밀번호 찾기</a>| --%>
+<%-- 			<a href = "<%= contextPath %>/agreement">회원가입</a> --%>
 			<form name="signform" id = 'signform' method="get" action = "sign"></form>
-			<a href = "<%= contextPath %>/lookForId">아이디 찾기</a>|
-			<a href = "<%= contextPath %>/lookForPwd">비밀번호 찾기</a>|
-			<a href = "<%= contextPath %>/agreement">회원가입</a>
-
+			<a class="moveBT" data-target="#signform" id="sign">회원가입   </a> 
+			<form name="findidform" id = 'findidform' method="get" action = "find">
+				<input type = "hidden" name = "findby" value = "id">
+			</form>
+			<a class="moveWindowBT" data-target="#findidform" id="findid">아이디</a> /
+			<form name="findpwdform" id = 'findpwdform' method="get" action = "find">
+				<input type = "hidden" name = "findby" value = "pwd">
+			</form>
+			<a class="moveWindowBT" data-target="#findpwdform" id="findpwd">비밀번호 찾기</a>
 		</div>
-		
 		<div class="sns_sign_in">
      <div id="my-signin2"></div>
   	<!-- 네이버 -->
@@ -159,6 +192,5 @@
       //]]>
     </script>
    </div>
-	</div>
 </body>
 </html>
