@@ -3,6 +3,7 @@ package com.movie.mymovie.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,15 @@ public class Movie1DAOImpl implements Movie1DAO{
 
 	}
 	
+	@Override
+	public List<TimeTableDto> selectTimeByDate(HashMap<String, String> paramMap){
+	List<TimeTableDto> movieTimeList=new ArrayList<TimeTableDto>();
 	
+	movieTimeList=sqlSession.selectList(
+			"Movie1Mapper.selectTimeByDate", paramMap);
+	
+	return movieTimeList;
+
+	}
 
 }

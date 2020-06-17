@@ -2,6 +2,7 @@ package com.movie.mymovie.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,9 @@ public class Movie1ServiceImpl {
 	public List<TimeTableDto> selectDateByTheaterAndMovie(HashMap<String, String> paramMap){
 		return movie1DAOImpl.selectDateByTheaterAndMovie(paramMap);
 	}
+	
+	public List<TimeTableDto> selectTimeByDate(HashMap<String, String> paramMap){
+		return movie1DAOImpl.selectTimeByDate(paramMap);
+	}
+	
 }

@@ -7,7 +7,6 @@ response.setCharacterEncoding("utf-8");
 %>
 <%
 response.setContentType("text/xml;charset=UTF-8");
-
 %>
 <% response.setContentType("text/html; charset=utf-8"); %>
 
