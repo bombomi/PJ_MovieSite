@@ -18,8 +18,8 @@ public class MypageDAOImpl implements MypageDAO{
 	public List<UserDto> selectUserAllList() {
 		List <UserDto> UserDtoList=
 				new ArrayList<UserDto>();
-		UserDtoList=
-				SqlSession.selectList("MypageMapper.selectUserAllList");
+		//UserDtoList=
+				// SqlSession.selectList("MypageMapper.selectUserAllList");
 		return UserDtoList;
 	}
 
