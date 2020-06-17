@@ -40,7 +40,7 @@
 	<!-- 3. 글 쓰기 처리 페이지 -->
 	<insert id="insertBoard" parameterType="com.movie.mymovie.vo.BoardVO">
 		INSERT INTO board(board_id, user_id, board_writer, board_title, board_content, read_cnt, reg_date) 
-			VALUES (BOARD_SEQ.nextval, 'park', '제발', #{board_title}, #{board_content}, 0, SYSDATE)
+			VALUES (BOARD_SEQ.nextval, #{user_id}, #{board_writer}, #{board_title}, #{board_content}, 0, SYSDATE)
 	</insert>
 	
 	<!-- 방명록 조회 -->

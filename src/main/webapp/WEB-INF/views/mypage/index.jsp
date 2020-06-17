@@ -71,7 +71,7 @@ function loadPage(value) {
 		break;
 	case 0:
 	default:
-		document.getElementById("right_pane").innerHTML = '<object style="width:100%;height:100%" type="text/html" data="/mymovie/myPage/myEdit" ></object>';
+		document.getElementById("right_pane").innerHTML = '<object style="width:100%;height:100%" type="text/html" data="/mymovie/myPage/ModifyForm" ></object>';
 					
 	}
 }

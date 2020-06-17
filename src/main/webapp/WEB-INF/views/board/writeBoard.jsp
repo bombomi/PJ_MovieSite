@@ -3,6 +3,7 @@
 	<%
 	String contextPath = request.getContextPath();
 	%>
+	 <%= request.getAttribute("member_id") %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,18 @@
 	
 	<table>
 		<tr>
+		<th>글 작성자
+			<td><input type="text" name = "user_id" value="${member.getMember_id()}">
+		</tr>
+
+			<tr>
+				<th>닉네임
+				<td><input type="text" name="board_writer"
+					value="${member.getMember_nick()}">
+			</tr>
+
+			<tr>
+			
 			<th>제목</th>
 			<td><input type="text" name="board_title"
 				maxlength="50" style="width: 270px" placeholder="제목을 입력하세요!"
@@ -38,7 +51,7 @@
 		</tr>
 
 		<tr>
-			<th colspan="2">
+			<th colspan="4">
 				<input type="submit" value="작성"> 
 				<input type="reset" value="작성취소"> <input class="inputButton" type="button"
 				value="목록" onclick="window.location='BoardList">

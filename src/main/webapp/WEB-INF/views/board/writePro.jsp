@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+ <%= request.getAttribute("member_id") %>
 <html>
 <body>
 	<h2><center>글쓰기 - 처리페이지</center></h2>
