@@ -5,5 +5,25 @@
 
 <mapper namespace="Movie1Mapper">
 
+<select id="selectTheaterByAddr" resultType="com.movie.mymovie.dto.TheaterDto" parameterType="String">
 	
+	SELECT THEATER_ID, THEATER_NAME, THEATER_ADDR
+	FROM THEATER
+	WHERE THEATER_ADDR=#{theater_addr}
+	
+	</select>
+<select id="selectDateByTheaterAndMovie" resultType="com.movie.mymovie.dto.TimeTableDto" parameterType="java.util.HashMap">
+	
+	SELECT DISTINCT  THEATER_ID, MOVIE_ID, TO_CHAR(MOVIE_DATETIME, 'yyyymmdd') AS MOVIE_DATETIME
+	FROM TIMETABLE
+	WHERE THEATER_ID =#{theater_id} AND MOVIE_ID=#{movie_id}
+		
+	</select>
+	
+	<select id="selectTimeByDate" resultType="com.movie.mymovie.dto.TimeTableDto" parameterType="java.util.HashMap">
+		SELECT DISTINCT THEATER_ID, MOVIE_ID, TIMETABLE_ID, TO_CHAR(MOVIE_DATETIME, 'hh24:mi')
+		FROM TIMETABLE
+		WHERE TO_CHAR(MOVIE_DATETIME,'YYYYMMDD') = '20200617';
+	</select>
+		
 </mapper>

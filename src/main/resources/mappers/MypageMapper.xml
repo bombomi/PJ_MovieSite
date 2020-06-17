@@ -5,5 +5,17 @@
 
 <mapper namespace="MypageMapper">
 
+	<!-- 마이페이지 회원 정보 조회 -->
+	<select id="UserAllList" resultType="com.movie.mymovie.dao.MypageDAO">
+		SELECT  SEQ, 
+	             MEMBER_ID,
+	             MEMBER_NICK,
+	       		MEMBER_PWD,
+	       		MEMBER_EMAIL,
+	       		MEMBER_EMAIL2,
+	       		MEMBER_PIC     
+		FROM    MEMBER
+		ORDER BY ID ASC
+	</select>
 	
 </mapper>
