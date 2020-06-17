@@ -21,8 +21,7 @@ public class MyPageController {
 	private final Logger log = LoggerFactory.getLogger(MyPageController.class);
 	
 	@Autowired
-	MypageServiceImpl service;
-	
+	private MypageServiceImpl MypageServiceImpl;
 
 	// 인덱스
 	@RequestMapping(value = "/myPage")
@@ -65,3 +64,4 @@ public class MyPageController {
 	}
 
 }
+
