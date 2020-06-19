@@ -50,7 +50,17 @@ $(document).ready(function(){
 	        	    dataType:"json",
 	        	    data:allData,
 	        	    success:function(retVal){
-						alert(retVal.ok);
+	        	    	var resultMovieTimes=[];
+	        	    	resultMovieTimes=retVal.movieTimeList;
+	        	    	var resultHTML=makeTheaterListHTML(resultMovieTimes);
+	        	        $("#result").html(resultHTML);
+		        	 	   $("input[type='checkbox'][name='timetable_id']").click(function(){
+		        		        if($(this).prop('checked')){
+		        		        	$('input[type="checkbox"][name="timetable_id"]').prop('checked',false);
+		        		        	$(this).prop('checked', true);
+		        		        }});
+
+	        	    
 	        	    },
 	        	    error:function(request, status, error){
 	        	        alert("에러 발생~~ \n" + status + " : " + error);
@@ -68,37 +78,40 @@ function makeTheaterListHTML(list){
 	var theaterHTML="";
 	
     $.each(list, function( index, value ) {
-    	theaterHTML+="<input type='checkbox' name='theater_id' value='";
-    	console.log(value.theater_id);
-    	theaterHTML+=value.theater_id;
-    	theaterHTML+="'>"+value.theater_name+"&nbsp;";
+    	theaterHTML+="<input type='checkbox' name='timetable_id' value='";
+    	console.log(value.timetable_id);
+    	theaterHTML+=value.timetable_id;
+    	theaterHTML+="'>"+value.movie_dateTime+"&nbsp;";
      });
 	return theaterHTML;
 }
 </script>
 </head>
 <body>
+ 	<div class="head">
+		<jsp:include page="../head.jsp"></jsp:include>
+ 	</div>
 <input type="hidden" name="theater_id" value="${theater_id}">
 
-<table>
-	<tr>
-	<td>theater_id</td>
-	<td>movie_id</td>
-	<td>movie_dateTime</td>
-	</tr>
 
 
-		<c:forEach var="movieDateList" items="${movieDateList}" varStatus="status">
-		<tr>
-<td><input type="checkbox" name="timeTableDate" value="${movieDateList.movie_dateTime}">${movieDateList.movie_dateTime}
-</td>
+<c:forEach var="movieDateList" items="${movieDateList}" varStatus="status">
+
+<input type="checkbox" name="timeTableDate" value="${movieDateList.movie_dateTime}">${movieDateList.movie_dateTime}
+</c:forEach>
+<br>
+<hr>
+<form action="<%=contextPath%>/selectSeat" method="get">
+	<div id="result"></div>
+	<input type="submit" value="좌석 선택">
 	
+</form>
 
-		</tr>
+
 		
-		</c:forEach>
-</table>		
-<a href="<%=contextPath%>/selectSeat">좌석선택으로 이동</a>
+
+
+
 
 </body>
 </html>

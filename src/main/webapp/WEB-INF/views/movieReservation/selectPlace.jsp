@@ -89,13 +89,13 @@ function makeTheaterListHTML(list){
 }
 </script>
 <style>
-	body{
-	text-align:center
-	}
+
 </style>
 </head>
 <body>
-
+ 	<div class="head">
+		<jsp:include page="../head.jsp"></jsp:include>
+ 	</div>
 영화관 선택하기
 <hr width="80%">
 

@@ -26,7 +26,13 @@ public class Movie1Controller {
 	
 	
 	@RequestMapping(value="/selectPlace")
-	public String selectPlace() {
+	public String selectPlace(Model model) {
+		//앞선 영화 상세정보 페이지에서 받아온 영화 아이디값으로
+		//상영정보 테이블에서 영화관 주소목록을 불러온다. 
+		//화면에 표시하는 건 아직 안함.. ㅎㅎㅎ
+		String movie_id="1";
+		List<TheaterDto> placeList = movie1ServiceImpl.selectPlaceByMovie(movie_id);
+		model.addAttribute(placeList);
 		return "movieReservation/selectPlace";
 	}
 	
@@ -72,21 +78,11 @@ public class Movie1Controller {
 		//값을 전달할 hashmap 생성. reqval
 		HashMap<String, String> reqVal=new HashMap<String, String>();
 		reqVal.put("movie_dateTime",selectedDate);
-		reqVal.put("theater_id",theater_id);
-		System.out.println("movie_dateTime from map = "+reqVal.get("movie_dateTime"));
-		System.out.println("theater_id from map = "+reqVal.get("theater_id"));
-
-	
+		reqVal.put("theater_id",theater_id);	
 		List<TimeTableDto> movieTimeList = movie1ServiceImpl.selectTimeByDate(reqVal);
-		System.out.println("sql success??!!?!?");
-		//System.out.println("movieTimeList"+ movieTimeList.size());
         Map<String, Object> retVal= new HashMap<String, Object>();
-		System.out.println(movieTimeList.get(0).getMovie_dateTime());
-	
 		retVal.put("movieTimeList", movieTimeList);
-	
-        retVal.put("ok", "success");
-		return retVal;
+			return retVal;
 	}
 	@RequestMapping(value="/pay")
 	public String pay() {

@@ -18,6 +18,16 @@ public class Movie1DAOImpl implements Movie1DAO{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
+	public List<TheaterDto> selectPlaceByMovie(String movie_id){
+	List<TheaterDto> theaterDtoList=new ArrayList<TheaterDto>();
+	
+	theaterDtoList=sqlSession.selectList(
+			"Movie1Mapper.selectPlaceByMovie", movie_id);
+	
+	return theaterDtoList;
+
+	}
+	@Override
 	public List<TheaterDto> selectTheaterByAddr(String theater_addr){
 	List<TheaterDto> theaterDtoList=new ArrayList<TheaterDto>();
 	
