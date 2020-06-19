@@ -26,6 +26,8 @@ public class Movie1ServiceImpl {
 	}
 	
 	public List<TimeTableDto> selectTimeByDate(HashMap<String, String> paramMap){
+		//값 넘어갔나 확인
+		System.out.println("movie_dateTime in Service= "+paramMap.get("movie_dateTime"));
 		return movie1DAOImpl.selectTimeByDate(paramMap);
 	}
 	

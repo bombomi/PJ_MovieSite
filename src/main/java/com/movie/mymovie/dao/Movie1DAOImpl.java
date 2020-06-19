@@ -40,11 +40,13 @@ public class Movie1DAOImpl implements Movie1DAO{
 	
 	@Override
 	public List<TimeTableDto> selectTimeByDate(HashMap<String, String> paramMap){
+	System.out.println("movie_dateTime in DAO= "+paramMap.get("movie_dateTime"));
+
 	List<TimeTableDto> movieTimeList=new ArrayList<TimeTableDto>();
 	
 	movieTimeList=sqlSession.selectList(
 			"Movie1Mapper.selectTimeByDate", paramMap);
-	
+	System.out.println("sql호출한 이후");
 	return movieTimeList;
 
 	}

@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="selectTimeByDate" resultType="com.movie.mymovie.dto.TimeTableDto" parameterType="java.util.HashMap">
-		SELECT DISTINCT THEATER_ID, MOVIE_ID, TIMETABLE_ID, TO_CHAR(MOVIE_DATETIME, 'hh24:mi')
+		SELECT THEATER_ID, MOVIE_ID, TIMETABLE_ID, TO_CHAR(MOVIE_DATETIME, 'hh24:mi') AS MOVIE_DATETIME
 		FROM TIMETABLE
 		WHERE TO_CHAR(MOVIE_DATETIME,'YYYYMMDD') = '20200617';
 	</select>
