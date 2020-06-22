@@ -116,7 +116,7 @@ public class BoardController {
 
 	// 게시글 수정 페이지
 	@RequestMapping(value = "/modifyView")
-	public String modifyView(HttpServletRequest req, Model model) {
+	public String modifyView(HttpServletRequest req, Model model) { 
 		logger.info("url => modifyView");
 
 		service.modifyView(req, model);
