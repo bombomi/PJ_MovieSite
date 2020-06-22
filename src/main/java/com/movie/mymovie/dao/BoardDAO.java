@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.movie.mymovie.vo.BoardVO;
+import com.movie.mymovie.vo.ReplyVO;
 
 public interface BoardDAO {
 	
@@ -31,6 +32,9 @@ public interface BoardDAO {
 	
 	// 글 수정 처리
 	public int updateBoard(BoardVO vo);
+	
+	// 댓글 조회
+	public List<ReplyVO> readReply(int board_id);
 	
 
 }

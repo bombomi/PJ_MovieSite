@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.movie.mymovie.vo.BoardVO;
+import com.movie.mymovie.vo.ReplyVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -78,6 +79,11 @@ public class BoardDAOImpl implements BoardDAO {
 		 return sqlSession.update("com.movie.mymovie.dao.BoardDAO.updateBoard", vo);
 	}
 	
+	// 댓글 조회
+	@Override
+	public List<ReplyVO> readReply(int board_id) {
+		return sqlSession.selectList("com.movie.mymovie.dao.BoardDAO.readReply", board_id);
+	}
 
 
 }

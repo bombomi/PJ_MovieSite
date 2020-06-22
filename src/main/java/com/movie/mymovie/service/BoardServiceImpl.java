@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.movie.mymovie.dao.BoardDAO;
+import com.movie.mymovie.dto.UserDto;
 import com.movie.mymovie.vo.BoardVO;
+import com.movie.mymovie.vo.ReplyVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -115,7 +117,9 @@ public class BoardServiceImpl implements BoardService {
 	// 글 상세 페이지
 	@Override
 	public void contentForm(HttpServletRequest req, Model model) {
-		String strId = (String) req.getSession().getAttribute("user_id");
+//		String strId = (String) req.getSession().getAttribute("user_id");
+//		Object s = req.getSession().getAttribute("member");
+		UserDto user = (UserDto) req.getSession().getAttribute("member");
 		int number = Integer.parseInt(req.getParameter("number"));
 		int board_id = Integer.parseInt(req.getParameter("board_id"));
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
@@ -125,12 +129,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 상세페이지 조회
 		BoardVO vo = dao.getArticle(board_id);
-		
+	
 		// request나 session에 처리 결과를 저장(jsp에 저장하기 위함)
 		model.addAttribute("number", number);
 		model.addAttribute("dto", vo);
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("strId", strId);
+		// session == null : 비회원에게 임의적으로 test라는 아이디를 부여 (삼항연산자)
+		model.addAttribute("sessionUserId", (user == null) ? "test" : user.getMember_id());
+		
 	}
 	
 	// 글 쓰기 처리 페이지
@@ -217,6 +223,12 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("board_id", board_id);
 		
+	}
+	
+	// 댓글 조회
+	@Override
+	public List<ReplyVO> readReply(int board_id) {
+		return dao.readReply(board_id);
 	}
 
 }
