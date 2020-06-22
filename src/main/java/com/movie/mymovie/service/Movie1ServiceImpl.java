@@ -16,7 +16,10 @@ public class Movie1ServiceImpl {
 	
 	@Autowired
 	private Movie1DAOImpl movie1DAOImpl;
-	
+	//selectPlaceByMovie
+	public List<TheaterDto> selectPlaceByMovie(String movie_id){
+		return movie1DAOImpl.selectPlaceByMovie(movie_id);
+	}
 	public List<TheaterDto> selectTheaterByAddr(String theater_addr){
 		return movie1DAOImpl.selectTheaterByAddr(theater_addr);
 	}
@@ -26,7 +29,10 @@ public class Movie1ServiceImpl {
 	}
 	
 	public List<TimeTableDto> selectTimeByDate(HashMap<String, String> paramMap){
+		//값 넘어갔나 확인
+		System.out.println("movie_dateTime in Service= "+paramMap.get("movie_dateTime"));
 		return movie1DAOImpl.selectTimeByDate(paramMap);
 	}
+	
 	
 }

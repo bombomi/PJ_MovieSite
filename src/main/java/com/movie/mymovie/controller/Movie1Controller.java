@@ -25,12 +25,14 @@ public class Movie1Controller {
 	private Movie1ServiceImpl movie1ServiceImpl;
 	
 	
-	@RequestMapping(value="/movieInfo")
-	public String selectMovieInfo() {
-		return "main/movieInfo";
-	}
 	@RequestMapping(value="/selectPlace")
-	public String selectPlace() {
+	public String selectPlace(Model model) {
+		//앞선 영화 상세정보 페이지에서 받아온 영화 아이디값으로
+		//상영정보 테이블에서 영화관 주소목록을 불러온다. 
+		//화면에 표시하는 건 아직 안함.. ㅎㅎㅎ
+		String movie_id="1";
+		List<TheaterDto> placeList = movie1ServiceImpl.selectPlaceByMovie(movie_id);
+		model.addAttribute(placeList);
 		return "movieReservation/selectPlace";
 	}
 	
@@ -69,35 +71,18 @@ public class Movie1Controller {
 	public @ResponseBody
 	Object ajaxDateSelect( @RequestParam(value="theater_id") String theater_id,
 			 @RequestParam(value="selectedDate") String selectedDate)  
-	{          
+	{        
+		
 		System.out.println(theater_id);
 		System.out.println(selectedDate);
-		/*
-		 * 도대체 왜 맵이랑 매칭이 안되는지 죽었다 깨어나도 모르겠다^^
-		 * 
-		 * jsp에서 받아온 theater_id, selectedDate를 맵으로 묶어서 쿼리를 보내야하는데
-		 * 하나로 엮이지가 않아서 넘어가지 않음... 해결해야함!!!@ 수요일날부터 할 과제임...ㅠ 
-		 * 
-		 * */
+		//값을 전달할 hashmap 생성. reqval
 		HashMap<String, String> reqVal=new HashMap<String, String>();
-		reqVal.put("selectedDate",selectedDate);
-		System.out.println("selectedDate from map = "+reqVal.get(selectedDate));
-
-	
-		//List<TimeTableDto> movieTimeList = movie1ServiceImpl.selectTimeByDate(hash);
-		System.out.println("sql success??!!?!?");
-		//System.out.println("movieTimeList"+ movieTimeList.size());
+		reqVal.put("movie_dateTime",selectedDate);
+		reqVal.put("theater_id",theater_id);	
+		List<TimeTableDto> movieTimeList = movie1ServiceImpl.selectTimeByDate(reqVal);
         Map<String, Object> retVal= new HashMap<String, Object>();
-	
-//		retVal.put("theaterList", theaterList);
-					//System.out.println(theaterList.get(i).getTheater_name());
-	
-        retVal.put("ok", "success");
-		return retVal;
-	}
-	@RequestMapping(value="/selectSeat")
-	public String selectSeat() {
-		return "movieReservation/selectSeat";
+		retVal.put("movieTimeList", movieTimeList);
+			return retVal;
 	}
 	@RequestMapping(value="/pay")
 	public String pay() {
@@ -107,9 +92,6 @@ public class Movie1Controller {
 	public String reservationConfirm() {
 		return "movieReservation/reservationConfirm";
 	}
-	@RequestMapping(value="/headerCheck")
-	public String headerCheck() {
-		return "header";
-	}
+
 	
 }

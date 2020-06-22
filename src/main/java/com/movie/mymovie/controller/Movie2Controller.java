@@ -1,5 +1,17 @@
 package com.movie.mymovie.controller;
 
-public class Movie2Controller {
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+@Controller
+public class Movie2Controller {
+	
+	@RequestMapping(value="/movieInfo")
+	public String selectMovieInfo() {
+		return "main/movieInfo";
+	}
+	@RequestMapping(value="/selectSeat")
+	public String selectSeat() {
+		return "movieReservation/selectSeat";
+	}
 }

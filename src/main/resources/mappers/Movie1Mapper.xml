@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Movie1Mapper">
+<select id="selectPlaceByMovie" resultType="com.movie.mymovie.dto.TheaterDto" parameterType="String">
+	 SELECT THEATER_ADDR
+	 FROM THEATER, TIMETABLE
+	 WHERE TIMETABLE.MOVIE_ID=#{movie_id} AND TIMETABLE.THEATER_ID=THEATER.THEATER_ID
+	</select>
+
 
 <select id="selectTheaterByAddr" resultType="com.movie.mymovie.dto.TheaterDto" parameterType="String">
 	
@@ -21,9 +27,9 @@
 	</select>
 	
 	<select id="selectTimeByDate" resultType="com.movie.mymovie.dto.TimeTableDto" parameterType="java.util.HashMap">
-		SELECT DISTINCT THEATER_ID, MOVIE_ID, TIMETABLE_ID, TO_CHAR(MOVIE_DATETIME, 'hh24:mi')
+		SELECT THEATER_ID, MOVIE_ID, TIMETABLE_ID, TO_CHAR(MOVIE_DATETIME, 'hh24:mi') AS MOVIE_DATETIME
 		FROM TIMETABLE
-		WHERE TO_CHAR(MOVIE_DATETIME,'YYYYMMDD') = '20200617';
+		WHERE TO_CHAR(MOVIE_DATETIME,'YYYYMMDD') = #{movie_dateTime}
 	</select>
 		
 </mapper>
