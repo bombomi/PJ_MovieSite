@@ -28,7 +28,7 @@
 	
 	<tr>
 		<th style="width:150px"> 작성자 </th>
-		<td style="width:150px">${dto.board_writer}</td>
+		<td style="width:150px">${dto.user_id}</td>
 		
 		<th style="width:150px"> 작성일 </th>
 		<td style="width:150px">${dto.reg_date}

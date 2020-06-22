@@ -4,7 +4,6 @@ public class BoardVO {
 	
 	private int board_id;			// 원글번호
 	private String user_id;			// 유저 아이디
-	private String board_writer;	// 유저 닉네임
 	private String board_title;		// 글 제목
 	private String board_content;	// 글 내용
 	private int read_cnt;			// 조회수
@@ -31,14 +30,6 @@ public class BoardVO {
 
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
-	}
-
-	public String getBoard_writer() {
-		return board_writer;
-	}
-
-	public void setBoard_writer(String board_writer) {
-		this.board_writer = board_writer;
 	}
 
 	public String getBoard_title() {
