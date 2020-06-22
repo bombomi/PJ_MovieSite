@@ -31,5 +31,15 @@
 		FROM TIMETABLE
 		WHERE TO_CHAR(MOVIE_DATETIME,'YYYYMMDD') = #{movie_dateTime}
 	</select>
+	
+	<select id="returnSeatList" resultType="java.util.Map" parameterType="java.util.HashMap">
+
+		SELECT MAX(SCRHALL_SEATROW) AS SEATROW, MAX(SCRHALL_SEATCOL) AS SEATCOL
+		FROM SCREENHALL
+		WHERE THEATER_ID=#{theater_id} AND SCRHALL_ID=(SELECT SCRHALL_ID
+                                   			FROM TIMETABLE
+                                    		WHERE TIMETABLE_ID=#{timetable_id}
+		)
+	</select>
 		
 </mapper>

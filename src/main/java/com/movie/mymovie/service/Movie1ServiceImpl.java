@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.movie.mymovie.dao.Movie1DAOImpl;
+import com.movie.mymovie.dto.ScreenHallDto;
 import com.movie.mymovie.dto.TheaterDto;
 import com.movie.mymovie.dto.TimeTableDto;
 
@@ -29,10 +30,11 @@ public class Movie1ServiceImpl {
 	}
 	
 	public List<TimeTableDto> selectTimeByDate(HashMap<String, String> paramMap){
-		//값 넘어갔나 확인
-		System.out.println("movie_dateTime in Service= "+paramMap.get("movie_dateTime"));
 		return movie1DAOImpl.selectTimeByDate(paramMap);
 	}
 	
-	
+	public Map<String, Object> returnSeatList(HashMap<String, String> paramMap){	
+		return movie1DAOImpl.returnSeatList(paramMap);
+	};
+
 }

@@ -7,12 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.movie.mymovie.dto.ScreenHallDto;
 import com.movie.mymovie.dto.TheaterDto;
 import com.movie.mymovie.dto.TimeTableDto;
 import com.movie.mymovie.service.Movie1ServiceImpl;
@@ -83,6 +83,14 @@ public class Movie1Controller {
         Map<String, Object> retVal= new HashMap<String, Object>();
 		retVal.put("movieTimeList", movieTimeList);
 			return retVal;
+	}
+	//한현님 오기전에 내가 해보는 좌석선택 페이지.. ㅎㅎㅎ
+	@RequestMapping(value="/selectSeat2")
+	public String selectSeat(@RequestParam HashMap<String, String> paramMap, Model model) {
+		Map<String, Object> scrHallSeatList = movie1ServiceImpl.returnSeatList(paramMap);
+		System.out.println(scrHallSeatList);
+		model.addAttribute("scrHallSeatList",scrHallSeatList);
+		return "movieReservation/selectSeat2";
 	}
 	@RequestMapping(value="/pay")
 	public String pay() {
