@@ -145,7 +145,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 화면으로부터 입력받은 값
 		vo.setUser_id(req.getParameter("user_id"));
-		vo.setBoard_writer(req.getParameter("board_writer"));
 		vo.setBoard_title(req.getParameter("board_title"));
 		vo.setBoard_content(req.getParameter("board_content"));
 		vo.setReg_date(req.getParameter("reg_date"));

@@ -70,7 +70,7 @@ table {
 						href="ContentBoard?board_id=${dto.board_id}&pageNum=${pageNum}&number=${number+1}">${dto.board_title}</a>
 					</td>
 
-					<td align="center">${dto.board_writer}</td>
+					<td align="center">${dto.user_id}</td>
 
 					<td align="center">${dto.reg_date} <%-- <fmt:formatDate type="both" pattern="yyyy-MM-dd HH:mm" value="${dto.reg_date}"/> --%>
 					</td>
