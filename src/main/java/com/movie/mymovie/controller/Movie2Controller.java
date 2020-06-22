@@ -10,8 +10,5 @@ public class Movie2Controller {
 	public String selectMovieInfo() {
 		return "main/movieInfo";
 	}
-	@RequestMapping(value="/selectSeat")
-	public String selectSeat() {
-		return "movieReservation/selectSeat";
-	}
+
 }
