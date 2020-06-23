@@ -136,7 +136,7 @@ public class BoardController {
 		return "board/modifyPro";
 	}
 	 
-	// 게시글 댓글 삭제     
+	// 게시글 댓글 쓰기  
 	@RequestMapping(value = "board/replyWrite", method = RequestMethod.POST)
 	public String replyWrite(ReplyVO vo, HttpServletRequest req, Model model, RedirectAttributes rttr) {
 		logger.info("url --> replyWrite");
