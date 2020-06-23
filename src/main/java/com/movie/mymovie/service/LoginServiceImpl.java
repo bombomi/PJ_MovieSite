@@ -25,9 +25,25 @@ public class LoginServiceImpl implements LoginService{
 	}
 	
 	@Override
-	public void register(HashMap<String, String>paramMap) throws Exception {
-		loginDaoImpl.register(paramMap);
+	public void register(UserDto userDto) throws Exception {
+		loginDaoImpl.register(userDto);
 	}
+	
+	//아이디 중복 체크
+	@Override
+	public int idChk(UserDto userDto) throws Exception {
+		int result = loginDao.idChk(userDto);
+		return result;
+	}
+	
+	//닉네임 중복 체크
+	@Override
+	public int nickChk(UserDto userDto) throws Exception {
+		int result = loginDao.nickChk(userDto);
+		return result;
+	}
+	
+	
 //	@Override
 //	public int OverlapCheck(String id, List<String> idList) {
 //		System.out.println(idList);
@@ -96,7 +112,7 @@ public class LoginServiceImpl implements LoginService{
 //		}
 //		return 0;
 //	}
-//
+
 //	@Override
 //	public UserDto getUser(UserDto userDto) throws Exception {
 //		// TODO Auto-generated method stub

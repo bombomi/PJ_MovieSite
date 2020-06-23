@@ -1,12 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	String contextPath = request.getContextPath();
 %>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src = "//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type = "text/javascript">
+
+	function radio_chk(){
+		if(!form1.agreement[0].checked){
+			alert("약관에 동의하셔야 합니다.");
+			form1.agreement[0].focus();
+		}else{	
+			location.href = "/mymovie/login/register";
+		}
+	}
+	
+	function no(){
+		  history.back();
+		 }
+
+// $(document).ready(function() {
+	
+// 	function radio_chk() {
+//         //라디오 버튼 Name 가져오기
+//         var agreement = document.getElementsByName("agreement");
+ 
+//         //라디오 버튼이 체크되었나 확인하기 위한 변수
+//         var radio_btn_check = 0;
+//         for(var i = 0; i<radio_btn.length; i++){
+//             //만약 라디오 버튼이 체크가 되어있다면 true
+//             if(agreement[i].checked==true){
+//                 //라디오 버튼 값
+//                 alert(radio_btn[i].value);
+//                 //라디오 버튼이 체크되면 radio_btn_check를 1로 만들어준다.
+//                 radio_btn_check++;
+//             }
+//         }
+        
+//         if(radio_btn_check==0){
+//             alert("약관에 동의해주세요.");
+//             return;
+//         }
+//     }
+	
+// 	$("#cancle").on("click", function(){
+// 		location.href = "/mymovie/login";
+// 	}); 
+//	
+// 	$("#submit").on("click", function(){
+// 		if($("input:radio[name='agreement1']").is(":checked") == true) {
+//			
+// 			var agreement1_no = $(":input:radio[name = agreement1]:cheched").val();
+// 			if(agreement1_no == 'no'){
+// 				alert("이용약관에 동의해주세요.");
+// 				return false;
+// 			}
+// 			alert("이용약관에 동의해주세요.");
+// 			$("#agreement1").focus();
+// 			return false;
+// 		}
+// 		if($("#agreement2").val()== "") {
+// 			alert("개인 정보 수집 및 이용 약관에 동의해주세요.");
+// 			$("#agreement2").focus();
+// 			return false;
+// 		}
+// 		if($("#agreement3").val()== "") {
+// 			alert("위치 정보 이용 약관에 동의해주세요.");
+// 			$("#agreement3").focus();
+// 			return false;
+// 		}
+// 		function Click(){
+//
+// 			  if($("input:radio[name='agreement1']").is(":checked")==true){ // if 시작
+//			  
+// 			      var agreement1_no = $(":input:radio[name=agreement1]:checked").val();
+// 			      if(agreement1_no=='no'){
+// 			        alert('이용약관에 동의해주세요.');
+// 			        return false;
+// 			      }
+//			    
+// 			  }
+//
+//		}
+//		
+// 	});
+//});
+</script>
 <title>Insert title here</title>
 <style>
 	body {
@@ -15,10 +100,7 @@
 </style>
 </head>
 <body>
-<!-- 	회원가입 전 약관동의하는 페이지 -->
-<!-- 	<hr width = "80%"> -->
-	약관 동의를 해야 회원가입 페이지로 <a href = "<%= contextPath %>/newMemberForm" method = "post">이동</a>
-	<form action = "<%= contextPath %>/newMemberForm" method = "post">
+	<form action = "<%= contextPath %>/login/register" method = "get" name = "form1">
 	<div class="head">
 			<jsp:include page="../head.jsp"></jsp:include>
 	</div>
@@ -140,7 +222,10 @@
 적용 일자: 2020년 6월 15일
 부귀영화 서비스와 관련하여 궁금하신 사항이 있으시면 고객센터(대표번호: 1588 - 0000/ 평일 09:00~18:00)로 문의 주시기 바랍니다.</textarea>
 	<br>
-	<input type = "radio" value = "agree" name = "agreement1">동의 <input type = "radio" value = "disagree" name = "agreement1" checked>동의하지 않음
+<!-- 	<input type = "radio" value = "yes" name = "agreement1" id = "agreement1"> -->
+<!-- 	<label for = "agreement1">동의</label>  -->
+<!-- 	<input type = "radio" value = "no" name = "agreement1" id = "agreement1_no" checked> -->
+<!-- 	<label for = "agreement1">동의하지 않음</label> -->
 	</div>
 	<br><br>
 	<div name = "agree2">
@@ -203,7 +288,7 @@ QR코드 등록 정보:삭제 시점으로부터6개월 보관
 참고로 부귀영화는 ‘개인정보 유효기간제’에 따라 1년간 서비스를 이용하지 않은 회원의 개인정보를 별도로 분리 보관하여 관리하고 있습니다.
 	</textarea>
 	<br>
-	<input type = "radio" value = "agree" name = "agreement2">동의 <input type = "radio" value = "disagree" name = "agreement2" checked>동의하지 않음
+<!-- 	<input type = "radio" value = "yes" name = "agreement2" id = "agreement2">동의 <input type = "radio" value = "no" name = "agreement2" id = "agreement2" checked>동의하지 않음 -->
 	</div>
 	<br><br>
 	<div name = "agree3">
@@ -286,10 +371,13 @@ QR코드 등록 정보:삭제 시점으로부터6개월 보관
 이메일 주소 : privacy@bgmovie.com
 	</textarea>
 	<br>
-	<input type = "radio" value = "agree" name = "agreement3">동의 <input type = "radio" value = "disagree" name = "agreement3" checked>동의하지 않음
-	</div>
+	<input type = "radio" value = "yes" name = "agreement" id = "agreement">모두 동의 
+	<input type = "radio" value = "no" name = "agreement" id = "agreement">모두 동의하지 않음
+<!-- 	</div> -->
 	<br><br>
-	<input type = "submit" value = "확인">
+	<button class = "btn btn-success" type = "button" name = "submit" id = "submit" onclick="radio_chk();">확인</button>
+	<button class = "cancle btn btn-danger" type = "button" name = "cancle" id = "cancle" onclick="no();">취소</button>
+	</div>
 	</form>
 </body>
 </html>

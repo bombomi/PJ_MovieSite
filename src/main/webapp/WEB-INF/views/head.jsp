@@ -9,10 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 충돌 수정 -->
-    <nav class="navbar navbar-light custom-navbar">
+	 <nav class="navbar navbar-light custom-navbar">
     <div class="container">
-      <a class="navbar-brand" href="main/index">富貴榮華(:부귀영화)</a>
+      <a class="navbar-brand" href="<%=contextPath %>/main/index">富貴榮華(:부귀영화)</a>
               <div class="row mb-5 align-items-center">
           <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
             <h2>Movie reservation & community site&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
@@ -20,24 +19,21 @@
             </p>
           </div>
           <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
-          <div id="a" class="filters">
+            <div id="a" class="filters">
               <a href="<%=contextPath %>/main/index" data-filter="*" class="active">home</a>
               <%--
               System.out.println("session : member = " + session.getAttribute("member"));
                --%>
               <c:if test = '<%= session.getAttribute("member") != null %>'>
-                 <a href = "<%=contextPath%>/login/logout">Logout</a>
+              	<a href = "<%=contextPath%>/login/logout">Logout</a>
               </c:if>
               
               <c:if test = '<%= session.getAttribute("member") == null %>'>
-                 <a href = "<%=contextPath%>/login">Login</a>
+              	<a href = "<%=contextPath%>/login">Login</a>
               </c:if>
-               
-                 <a href="<%=contextPath %>/BoardList">Community</a>
               
-                <c:if test = '<%= session.getAttribute("member") != null %>'>
-                  <a href="<%=contextPath %>/myPage" >My Page</a>
-              </c:if>
+              <a href="<%=contextPath %>/board/BoardList">Community</a>
+              <a href="<%=contextPath %>/myPage/myPage" >My Page</a>
             </div>
           </div>
         </div>

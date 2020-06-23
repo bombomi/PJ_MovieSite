@@ -4,11 +4,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String contextPath = request.getContextPath();
+
+// 	boolean success = request.get
 %>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Insert title here</title>
+<script>
+// 	$("#submit").on("click", function(){
+// 	if($("#member_id").val()=="") {
+// 		alert("아이디를 입력해주세요.");
+// 		$("#member_id").focus();
+// 		return false;
+// 	}
+</script>
 <style>
 	body {
 		font-family: "맑은 고딕";
@@ -93,7 +104,18 @@
 		})
 		
 	})
-</script>-->
+</script> -->
+<!-- <script type = "text/javascript">
+ 	$(document).ready(function(){
+ 		$("#loginBtn").on("click",function(){
+			consol.log(${success}.val());
+ 			if(${success == false}) {
+ 				alert("아이디와 비밀번호를 확인해주세요.");
+ 				return false;
+ 			};
+ 		});
+ 	});
+</script> -->
 </head>
 <body>
  	<div class="head">
@@ -114,10 +136,13 @@
 					</div>
 					<div>
 				<!-- 로그인 후 갈 메인페이지 value -->
-					<button class="moveBT" type = "submit">Login</button>
+					<button class="moveBT" id = "loginBtn" type = "submit">Login</button>
 					</div>
+					<a href = "<%= contextPath %>/login/lookForId">아이디 찾기</a>| 
+ 					<a href = "<%= contextPath %>/login/lookForPwd">비밀번호 찾기</a>| 
+ 					<a href = "<%= contextPath %>/login/agreement">회원가입</a> 
 				</c:if>
-			<!-- 	<c:if test = "${member != null or member_id != null }">
+				<c:if test = "${member != null or member_id != null }">
 					<div>
 						<p>${member.getMember_id()}님 환영합니다.</p>
 						<button id = "logoutBtn" type = "button">Logout</button>
@@ -125,72 +150,10 @@
 				</c:if>
 				<c:if test = "${msg == false }">
 					<p style = "color:red;">아이디와 비밀번호를 확인해주세요.</p>
-				</c:if> -->
+				</c:if>
 				</form>
 			</div>
 			</div>
 		<!-- 로그인 끝 -->
-
-		<div class="jo_seBtn" id="ko_f_size_s">
-			
-<!-- 			<form name="signform" id = 'signform' method="get" action = "sign"></form> -->
-<%-- 			<a href = "<%= contextPath %>/lookForId">아이디 찾기</a>| --%>
-<%-- 			<a href = "<%= contextPath %>/lookForPwd">비밀번호 찾기</a>| --%>
-<%-- 			<a href = "<%= contextPath %>/agreement">회원가입</a> --%>
-			<form name="signform" id = 'signform' method="get" action = "sign"></form>
-			<a class="moveBT" data-target="#signform" id="sign">회원가입   </a> 
-			<form name="findidform" id = 'findidform' method="get" action = "find">
-				<input type = "hidden" name = "findby" value = "id">
-			</form>
-			<a class="moveWindowBT" data-target="#findidform" id="findid">아이디</a> /
-			<form name="findpwdform" id = 'findpwdform' method="get" action = "find">
-				<input type = "hidden" name = "findby" value = "pwd">
-			</form>
-			<a class="moveWindowBT" data-target="#findpwdform" id="findpwd">비밀번호 찾기</a>
-		</div>
-		<div class="sns_sign_in">
-     <div id="my-signin2"></div>
-  	<!-- 네이버 -->
-    <script type="text/javascript"
-	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
-	charset="utf-8"></script>
-	
-	<!-- 카카오 -->
-	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>  
-	
-	<!-- 네이버 -->  
-    <div id="naverIdLogin"></div>
-		<script type="text/javascript">
-			var naverLogin = new naver.LoginWithNaverId({
-				clientId: "HFnmhVECDrtveBH0bKOm",
-				callbackUrl: "Jv6uMLmNCG",
-				isPopup: false, /* 팝업을 통한 연동처리 여부 */
-				loginButton: {color: "", type: 3, height: 48} /* 로그인 버튼의 타입을 지정 */
-				});
-					/* 설정정보를 초기화하고 연동을 준비 */
-				naverLogin.init();
-				</script>
-	<!-- //네이버아디디로로그인 초기화 Script --> 
-	
-	<!-- 카카오 -->
-		<a id="kakao-login-btn"></a> 
-		<a href="http://developers.kakao.com/logout"></a>
-		<script type='text/javascript'>
-      //<![CDATA[
-        // 사용할 앱의 JavaScript 키를 설정해 주세요.
-        Kakao.init('2113078b4084f943d0f692c88e9e2869');
-        // 카카오 로그인 버튼을 생성합니다.
-        Kakao.Auth.createLoginButton({
-          container: '#kakao-login-btn',
-          success: function(authObj) {
-            alert(JSON.stringify(authObj));
-          },
-          fail: function(err) {
-             alert(JSON.stringify(err));
-          }
-        });
-      //]]>
-    </script>
-   </div>
 </body>
 </html>

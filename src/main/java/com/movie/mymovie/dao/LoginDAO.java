@@ -21,8 +21,26 @@ public interface LoginDAO {
 //		public UserDto login(UserDto userDto) throws Exception;
 	
 	//회원가입
-	public void register(HashMap<String, String>paramMap) throws Exception;
+	public void register(UserDto userDto) throws Exception;
 	
 	//로그인
 	public UserDto islogin(HashMap<String, String>paramMap) throws Exception;
+	
+	//아이디 중복 체크
+	public int idChk(UserDto userDto) throws Exception;
+	
+	//닉네임 중복 체크
+	public int nickChk(UserDto userDto) throws Exception;
+	
+
+	
+//	public UserDto getMemberById(String id) throws Exception;
+//	
+//	public UserDto getMemberByEmail(UserDto userDto) throws Exception;
+//	
+//	public void insertMember(UserDto userDto) throws Exception;
+//	
+//	public void memberModifie(UserDto userDto) throws Exception;
+//	
+//	public void createMypage(String member_nick) throws Exception;
 }

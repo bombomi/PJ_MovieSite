@@ -1,9 +1,11 @@
 package com.movie.mymovie.controller;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,13 +38,14 @@ public class loginController {
 	@Inject LoginService service;
 	@Inject LoginServiceImpl serviceImpl;
 	
+	
 	private static final Logger logger = LoggerFactory.getLogger(loginController.class);
 	
 	//회원가입 get
-//	@RequestMapping(value = "/register", method = RequestMethod.GET)
-//	public void getRegister() throws Exception {
-//		logger.info("get register");
-//	}
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public void getRegister() throws Exception {
+		logger.info("get register");
+	}
 	//회원가입 post
 //	@RequestMapping(value = "/register", method = RequestMethod.POST)
 //	public String postRegister(HashMap<String, String>paramMap, RedirectAttributes red) throws Exception {
@@ -49,8 +53,32 @@ public class loginController {
 //		
 //		serviceImpl.register(paramMap);
 //		
-//		return "redirect:/index";
+//		return "redirect:/login/index";
 //	}
+	
+	// 회원가입 post
+	//@ResponseBody
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String postRegister(UserDto userDto) throws Exception {
+		logger.info("post register");
+		int result = service.idChk(userDto);
+		int result2 = service.nickChk(userDto);
+		try {
+			if(result == 1 && result2 == 1) {
+				return "/login/register";
+			}else if(result == 0 && result2 == 0) {
+				logger.info("result=["+result+"]");
+			}
+			// 여기에서 입력된 아이디가 존재한다면(result == 1) -> 다시 회원가입 페이지로 돌아가기 
+			// 존재하지 않는다면 -> register
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
+		
+		service.register(userDto);
+		
+		return "redirect:/main/index";
+	}
 	
 	@RequestMapping(value = "/login")
 	public String Login() {
@@ -59,27 +87,78 @@ public class loginController {
 	}
 	//로그인페이지 login.jsp
 	
+	//아이디 중복 체크
+	@ResponseBody
+	@RequestMapping(value = "/idChk", method = {RequestMethod.POST,RequestMethod.GET})
+	public String idChk(UserDto userDto) throws Exception {
+		logger.info("url -> idChk");
+		logger.info("userDto=["+userDto+"]");
+		String result = service.idChk(userDto)+"";
+		logger.info("result=["+result+"]");
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/nickChk", method = {RequestMethod.POST,RequestMethod.GET})
+	public String nickChk(UserDto userDto) throws Exception {
+		logger.info("url -> nickChk");
+		logger.info("userDto=["+userDto+"]");
+		String result = service.nickChk(userDto)+"";
+		logger.info("result=["+result+"]");
+		return result;
+	}
+	
 	@RequestMapping(value = "/islogin")
-	public String islogin(@RequestParam HashMap<String, String>paramMap, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+	public ModelAndView islogin(@RequestParam HashMap<String, String>paramMap, HttpServletRequest req, 
+			HttpServletResponse response, RedirectAttributes rttr, Model model) throws Exception{
+		
+		ModelAndView mv = new ModelAndView();
 		logger.info("url --> login");
 		HttpSession session = req.getSession();
-		System.out.println("service 존");
 		System.out.println(paramMap.get("member_id"));
 		System.out.println(paramMap.get("member_pwd"));
 		UserDto islogin = service.islogin(paramMap);
-		System.out.println("if 진입 전");
 		if(islogin == null) {
-			System.out.println("if 진입 후");
+//			session.setAttribute("member", null);
+//			rttr.addFlashAttribute("msg", false);
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.'); history.go(-1);</script>");
+            out.flush();
+			mv.setViewName("login/login");
+			return mv;
+//			System.out.println("script 진입 전");
+//			response.setContentType("text/html; charset=UTF-8");
 
-			session.setAttribute("member", null);
-			rttr.addFlashAttribute("msg", false);
+//            System.out.println("script 진입 후");
 		}else {
 			session.setAttribute("member", islogin);
-			
+//			mv.addObject("success", true);
 		}
-		
-		return "redirect:/main/index"; //main/index
+		mv.setViewName("redirect:/main/index");
+		return mv; //main/index
 	}
+//	@RequestMapping(value = "/loginuser", method = RequestMethod.POST)
+//	public String login(HttpSession session, HttpServletRequest request, Model model, UserDto userDto) throws Exception{
+//		System.out.println(1);
+//		UserDto loginuser = loginDAO.getMemberById(userDto.getMember_id()); 
+//		System.out.println(2);
+//		if(loginuser == null ) {
+//			model.addAttribute("login", "1");
+//			return "login/main";
+//		}
+//		if(!loginuser.getMember_pwd().equals(userDto.getMember_pwd())) {
+//			System.out.println("loginuser.getUser_pwd() : " + loginuser.getMember_pwd());
+//			System.out.println("userDto.getUser_pwd() : " + userDto.getMember_pwd());
+//			
+//			model.addAttribute("login", "2");
+//			return "login/main";
+//		}
+//
+//		model.addAttribute("login", "0");
+//		model.addAttribute("uservo",loginuser);
+//		
+//		return "main/main";
+//	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) throws Exception {
@@ -144,11 +223,29 @@ public class loginController {
 		return "login/successNewMember";
 	}
 	
-	@RequestMapping(value = "/needlogin", method = RequestMethod.GET)
-	public String needlogin(HttpServletRequest request, Model model){
-		
-		return "login/needlogin";
-	}
+	
+	
+//	@RequestMapping(value = "/needlogin", method = RequestMethod.GET)
+//	public String needlogin(HttpServletRequest request, Model model){
+//		
+//		return "login/needlogin";
+//	}
+	
+//	@RequestMapping(value = "/sign", method = RequestMethod.GET)
+//	public String sign(HttpServletRequest request, Model model){
+//		
+//		return "login/sign";
+//	}
+//	
+//	@RequestMapping(value = "/sign", method = RequestMethod.POST)
+//	public String signTry(HttpServletRequest request, Model model, UserDto userDto) throws Exception{
+//		loginDAO.insertMember(userDto);
+//		System.out.println("12");
+//		loginDAO.createMypage(userDto.getMember_nick());
+//		model.addAttribute("sign", "T");
+//		
+//		return "login/main";
+//	}
 	
 //	@RequestMapping(value = "/login/main", method = RequestMethod.POST)
 //	public String mainPost(HttpServletRequest request, Model model, UserDto userDto) throws Exception{

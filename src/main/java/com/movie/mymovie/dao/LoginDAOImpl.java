@@ -26,9 +26,31 @@ public class LoginDAOImpl implements LoginDAO{
 	}
 
 	@Override
-	public void register(HashMap<String, String>paramMap) throws Exception {
-		sqlSession.insert("LoginMapper.register", paramMap);
+	public void register(UserDto userDto) throws Exception {
+		sqlSession.insert("LoginMapper.register", userDto);
 	}
+	
+	//아이디 중복 체크
+	@Override
+	public int idChk(UserDto userDto) throws Exception {
+		int result = sqlSession.selectOne("LoginMapper.idChk", userDto);
+		return result;
+	}
+	
+	//닉네임 중복 체크
+	@Override
+	public int nickChk(UserDto userDto) throws Exception {
+		int result = sqlSession.selectOne("LoginMapper.nickChk", userDto);
+		return result;
+	}
+	
+
+
+//	
+//	@Override
+//	public void createMypage(String my_nick) throws Exception {
+//		loginDao.createMypage(my_nick);
+//	}
 
 	//--------------------------User-------------------------------
 //		//UserList
@@ -48,23 +70,23 @@ public class LoginDAOImpl implements LoginDAO{
 //		}
 //		
 //		@Override
-//		public UserDto getUserById(String member_id) throws Exception {
-//			return loginDao.getUserById(member_id);
+//		public UserDto getMemberById(String member_id) throws Exception {
+//			return loginDao.getMemberById(member_id);
 //		}
 //		
 //		@Override
-//		public UserDto getUserByEmail(UserDto userDto) throws Exception {
-//			return loginDao.getUserByEmail(userDto);
+//		public UserDto getMemberByEmail(UserDto userDto) throws Exception {
+//			return loginDao.getMemberByEmail(userDto);
 //		}
 //
 //		@Override
-//		public void insertUser(UserDto userDto) throws Exception {
-//			loginDao.insertUser(userDto);
+//		public void insertMember(UserDto userDto) throws Exception {
+//			loginDao.insertMember(userDto);
 //		}
 //
 //		@Override
-//		public void userModifie(UserDto userDto) throws Exception {
-//			loginDao.userModifie(userDto);
+//		public void memberModifie(UserDto userDto) throws Exception {
+//			loginDao.memberModifie(userDto);
 //		}
 //
 //		@Override

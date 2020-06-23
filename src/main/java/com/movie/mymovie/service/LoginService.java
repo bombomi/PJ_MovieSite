@@ -14,7 +14,14 @@ public interface LoginService {
 //	public int pwdCheck(String pwd);
 //	public int pwdEqualCheck(String pwd,String pwdck);
 	
-	public void register(HashMap<String, String>paramMap) throws Exception;
+	public void register(UserDto userDto) throws Exception;
 	
 	public UserDto islogin(HashMap<String, String>paramMap) throws Exception;
+	
+	public int idChk(UserDto userDto) throws Exception;
+	
+	public int nickChk(UserDto userDto) throws Exception;
+	
+	
+	
 }
