@@ -9,7 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	 <nav class="navbar navbar-light custom-navbar">
+<!-- 충돌 수정 -->
+    <nav class="navbar navbar-light custom-navbar">
     <div class="container">
       <a class="navbar-brand" href="main/index">富貴榮華(:부귀영화)</a>
               <div class="row mb-5 align-items-center">
