@@ -1,6 +1,7 @@
 package com.movie.mymovie.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -41,6 +42,15 @@ public class LoginServiceImpl implements LoginService{
 	public int nickChk(UserDto userDto) throws Exception {
 		int result = loginDao.nickChk(userDto);
 		return result;
+	}
+	
+	@Override 
+	public List<UserDto> findId(UserDto userDto) throws Exception { 
+	return loginDao.findId(userDto); 
+	} 
+	
+	@Override public String findPwd(UserDto userDto) throws Exception { 
+	return loginDao.findPwd(userDto); 
 	}
 	
 	
