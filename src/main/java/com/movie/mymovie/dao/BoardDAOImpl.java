@@ -84,6 +84,12 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<ReplyVO> readReply(int board_id) {
 		return sqlSession.selectList("com.movie.mymovie.dao.BoardDAO.readReply", board_id);
 	}
+	
+	// 댓글 작성
+	@Override
+	public void writeReply(ReplyVO vo) {
+		sqlSession.insert("com.movie.mymovie.dao.BoardDAO.writeReply", vo);
+	}
 
 
 }

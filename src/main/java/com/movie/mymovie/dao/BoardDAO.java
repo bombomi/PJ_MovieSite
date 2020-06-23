@@ -36,5 +36,8 @@ public interface BoardDAO {
 	// 댓글 조회
 	public List<ReplyVO> readReply(int board_id);
 	
+	// 댓글 작성
+	public void writeReply(ReplyVO vo);
+	
 
 }

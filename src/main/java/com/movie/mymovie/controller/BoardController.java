@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.movie.mymovie.service.BoardServiceImpl;
 import com.movie.mymovie.vo.BoardVO;
@@ -37,9 +38,12 @@ public class BoardController {
 
 	// 상세 페이지 보기
 	@RequestMapping(value = "/ContentBoard", method = RequestMethod.GET)
-	public String doContent(HttpServletRequest req, Model model, @RequestParam int board_id)  {
+	public String doContent(BoardVO vo, HttpServletRequest req, Model model, @RequestParam int board_id)  {
 		logger.info("url --> ContentBoard");
 		service.contentForm(req, model);
+		List<ReplyVO> replyList = service.readReply(vo.getBoard_id());
+		model.addAttribute("replyList", replyList);
+		logger.info("url --> ContentBoard 댓글... ㅅㅣ발");
 		return "board/ContentBoard";
 	}
 
@@ -50,8 +54,8 @@ public class BoardController {
 		service.writeForm(req, model);
 
 		return "board/writeBoard";
-	}
-
+	}          
+   
 	// 글 쓰기 완료
 	@RequestMapping(value = "/writePro")
 	public String writePro(HttpServletRequest req, Model model) {
@@ -131,5 +135,16 @@ public class BoardController {
 		service.modifyPro(req, model);
 		return "board/modifyPro";
 	}
+	 
+	// 게시글 댓글 삭제     
+	@RequestMapping(value = "board/replyWrite", method = RequestMethod.POST)
+	public String replyWrite(ReplyVO vo, HttpServletRequest req, Model model, RedirectAttributes rttr) {
+		logger.info("url --> replyWrite");
+		service.writeReply(vo);
+		rttr.addAttribute("board_id", vo.getBoard_id());
+		rttr.addAttribute("pageNum", req.getParameter("pageNum"));
+		rttr.addAttribute("number", req.getParameter("number"));
+		return "redirect:/ContentBoard";   
+	} 
 
 }

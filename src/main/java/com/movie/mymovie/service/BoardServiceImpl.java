@@ -230,5 +230,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<ReplyVO> readReply(int board_id) {
 		return dao.readReply(board_id);
 	}
+	
+	// 댓글 작성
+	@Override
+	public void writeReply(ReplyVO vo) {
+		dao.writeReply(vo);
+	}
 
 }

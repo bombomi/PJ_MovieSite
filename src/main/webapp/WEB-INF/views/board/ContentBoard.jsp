@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.movie.mymovie.dto.UserDto"%>
+
+<%
+	String contextPath = request.getContextPath();
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +15,26 @@ table {
 	margin: auto;
 }
 </style>
+<script type="text/javascript" src="<c:url value ='/vendor/jquery/jquery.min.js'/>"/></script>
+<script type="text/javascript" src="<c:url value ='/js/jquery-3.3.1.min.js'/>"/></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$(".replyWritnBtn").on("click", function(){
+		var formObj = $("form[name='replyForm']");
+		formObj.attr("action", "<%=contextPath%>/board/replyWrite");
+		formObj.submit();
+	});
+	
+	$(".replyWritnBtn").click(function() {
+		if(document.getElementById("sessionUserId").value == "test" ) {
+			  alert('비회원은 댓글 작성이 불가능합니다.');
+			  return;
+		}
+	});
+});
+
+</script>
 <title>부귀영화 상세 페이지</title>
 </head>
 <body>
@@ -21,7 +46,6 @@ table {
 	<h2>
 		<center>상세 페이지</center>
 	</h2>
-	
 	
 	
 	<input type="hidden" name="pageNum" value="${pageNum}">
@@ -76,21 +100,28 @@ table {
 			<input type="button" value="목록보기" onclick="window.location='BoardList?pageNum=${pageNum}'"></th>
 		</tr>
 	</table>
-
+		
+		<form name = "replyForm" method="post">
+		 <input type="hidden" id="board_id" name="board_id" value="${dto.board_id}" />
+		 	<input type="hidden" name="pageNum" value="${pageNum}">
+		    <input type="hidden" name="number" value="${number}">
+		    <input type="hidden" id="user_id" name="user_id" value="${sessionUserId}"/>
 		<table>
 			<tr>
-				<td colspan="3"><textarea cols="100" rows="5"></textarea>
-				<td colspan="1"><input type="button" value="등록">
+				<td colspan="3">
+				<textarea cols="100" rows="5" id = "comment_contents" name = "comment_contents"></textarea>
+				<td colspan="1"><button type="button" class="replyWritnBtn">등록</button>
 			</tr>
 			<hr>
 			
-			<c:forEach items="${replyList }" var="replyList">
+			<c:forEach items="${replyList}" var="replyList">
 			<tr>	
-				<td> 작성자 : ${replyList.user_id }
-				<td> ${replyList.comment_contents }
+				<td> ${replyList.user_id } 
+				<td width="50%"> ${replyList.comment_contents }
+				<td> ${replyList.reg_date }
 			</tr>
 			</c:forEach>
 		</table>
-	
+		</form>
 </body>
 </html>
