@@ -75,6 +75,7 @@ public class loginController {
 			rttr.addFlashAttribute("msg", false);
 		}else {
 			session.setAttribute("member", islogin);
+			
 		}
 		
 		return "redirect:/main/index"; //main/index

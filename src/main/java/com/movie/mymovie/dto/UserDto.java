@@ -57,4 +57,10 @@ public class UserDto {
 		this.member_pic = member_pic;
 	}
 
+	@Override
+	public String toString() {
+		return "UserDto [member_id=" + member_id + ", member_nick=" + member_nick + ", member_pwd=" + member_pwd
+				+ ", member_email=" + member_email + ", member_email2=" + member_email2 + ", member_pic=" + member_pic
+				+ "]";
+	}
 }

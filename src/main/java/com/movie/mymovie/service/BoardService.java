@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 import com.movie.mymovie.vo.BoardVO;
+import com.movie.mymovie.vo.ReplyVO;
 
 public interface BoardService {
 	
@@ -34,4 +35,10 @@ public interface BoardService {
 	
 	// 글 수정 처리 페이지
 	public void modifyPro(HttpServletRequest req, Model model);
+	
+	// 댓글 조회
+	public List<ReplyVO> readReply(int board_id);
+	
+	// 댓글 작성
+	public void writeReply(ReplyVO vo);
 }

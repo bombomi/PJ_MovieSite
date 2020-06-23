@@ -6,11 +6,6 @@
 
 <%
 	String contextPath = request.getContextPath();
-
-
-	List<BoardVO> list = (List<BoardVO>) request.getAttribute("dtos");
-	System.out.println("boardList : " + list.size());
-	
 %>
 
 
@@ -45,7 +40,11 @@ table {
 	<table>
 		<tr>
 			<th colspan="6" align="center" style="height: 25px">글 목록
-			(글 갯수:${cnt}) &nbsp;&nbsp;&nbsp; <a href="writeBoard?pageNum=${pageNum}"> 글 쓰기 </a>
+			(글 갯수:${cnt}) &nbsp;&nbsp;&nbsp; 
+			<!-- 로그인 안 되어 있으면 글 쓰기 못 누름 -->
+			<c:if test = "${member != null }">
+			<a href="writeBoard?pageNum=${pageNum}"> 글 쓰기 </a>
+			</c:if>
 			</th>
 		</tr>
 
