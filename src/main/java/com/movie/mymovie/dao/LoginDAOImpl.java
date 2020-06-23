@@ -1,6 +1,7 @@
 package com.movie.mymovie.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 //import org.mybatis.spring.SqlSessionTemplate;
@@ -42,6 +43,16 @@ public class LoginDAOImpl implements LoginDAO{
 	public int nickChk(UserDto userDto) throws Exception {
 		int result = sqlSession.selectOne("LoginMapper.nickChk", userDto);
 		return result;
+	}
+	
+	@Override 
+	public List<UserDto> findId(UserDto userDto) throws Exception { 
+	return sqlSession.selectList("LoginMapper.findId", userDto); 
+	} 
+	
+	@Override 
+	public String findPwd(UserDto userDto) throws Exception { 
+	return sqlSession.selectOne("LoginMapper.findPwd", userDto); 
 	}
 	
 

@@ -21,16 +21,13 @@ table {
 
 $(document).ready(function(){
 	$(".replyWritnBtn").on("click", function(){
-		var formObj = $("form[name='replyForm']");
-		formObj.attr("action", "<%=contextPath%>/board/replyWrite");
-		formObj.submit();
-	});
-	
-	$(".replyWritnBtn").click(function() {
-		if(document.getElementById("sessionUserId").value == "test" ) {
+		if(document.getElementById("user_id").value == "test" ) {
 			  alert('비회원은 댓글 작성이 불가능합니다.');
-			  return;
-		} 
+		} else{
+			var formObj = $("form[name='replyForm']");
+			formObj.attr("action", "<%=contextPath%>/board/replyWrite");
+			formObj.submit();
+		}
 	});
 });
 
@@ -108,8 +105,8 @@ $(document).ready(function(){
 		    <input type="hidden" id="user_id" name="user_id" value="${sessionUserId}"/>
 		<table>
 			<tr>
-				<td colspan="3">
-				<textarea cols="100" rows="5" id = "comment_contents" name = "comment_contents"></textarea>
+				<td colspan="4">
+				<textarea cols="80" rows="5" id = "comment_contents" name = "comment_contents"></textarea>
 				<td colspan="1"><button type="button" class="replyWritnBtn">등록</button>
 			</tr>
 			<hr>
@@ -117,7 +114,7 @@ $(document).ready(function(){
 			<c:forEach items="${replyList}" var="replyList">
 			<tr>	
 				<td> ${replyList.user_id } 
-				<td width="50%"> ${replyList.comment_contents }
+				<td colspan="2"> ${replyList.comment_contents }
 				<td> ${replyList.reg_date }
 			</tr>
 			</c:forEach>

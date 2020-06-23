@@ -32,7 +32,7 @@
               	<a href = "<%=contextPath%>/login">Login</a>
               </c:if>
               
-              <a href="<%=contextPath %>/board/BoardList">Community</a>
+              <a href="<%=contextPath %>/BoardList">Community</a>
               <a href="<%=contextPath %>/myPage/myPage" >My Page</a>
             </div>
           </div>

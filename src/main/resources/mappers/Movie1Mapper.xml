@@ -52,5 +52,16 @@
 	INSERT INTO RESERVATION (RESERV_ID, THEATER_ID, SCRHALL_ID, MEMBER_ID, TIMETABLE_ID, PAY_PLAN, SCRHALLSEAT_ID, RESERV_DATE)
 	VALUES (RESERV_ID_SEQ.NEXTVAL, #{theater_id}, #{scrhall_id}, #{member_id}, #{timetable_id}, #{payPlan}, #{scrhallSeat_id}, SYSDATE)
 	</insert>
-		
+	
+	<select id="checkReserved" resultType="java.lang.Object" parameterType="java.util.HashMap">
+	SELECT RESERV_ID 
+	FROM RESERVATION
+	WHERE TIMETABLE_ID=#{timetable_id} AND SCRHALLSEAT_ID=#{scrhallSeat_id}
+	</select>
+	
+	<select id="confirmInfo" resultType="java.util.Map" parameterType="java.util.HashMap">
+	SELECT THEATER.THEATER_NAME, SCRHALL_ID, TIMETABLE.MOVIE_DATETIME,MOVIE_TITLE
+	FROM   TIMETABLE, THEATER, MOVIE
+	WHERE TIMETABLE.TIMETABLE_ID=#{timetable_id} AND THEATER.THEATER_ID=TIMETABLE.THEATER_ID
+	</select>	
 </mapper>
