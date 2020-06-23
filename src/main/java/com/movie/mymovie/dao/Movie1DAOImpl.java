@@ -70,5 +70,20 @@ public class Movie1DAOImpl implements Movie1DAO{
 	return seatList;
 
 	}
+	public List<Map<String, String>> returnReservationList(HashMap<String, String> paramMap){
+		List<Map<String, String>> reservationList=new ArrayList<Map<String, String>>();
+		
+		reservationList=sqlSession.selectList(
+				"Movie1Mapper.returnReservationList", paramMap);
+		System.out.println("sql-seatList success?");
+		return reservationList;
+	};
+	
+	@Override
+	public void insertReservation(HashMap<String, Object> paramMap) {
+
+		sqlSession.insert("Movie1Mapper.insertReservation" , paramMap);
+	}
+
 
 }

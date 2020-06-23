@@ -36,5 +36,11 @@ public class Movie1ServiceImpl {
 	public Map<String, Object> returnSeatList(HashMap<String, String> paramMap){	
 		return movie1DAOImpl.returnSeatList(paramMap);
 	};
+	public List<Map<String, String>> returnReservationList(HashMap<String, String> paramMap){	
+		return movie1DAOImpl.returnReservationList(paramMap);
+	};
+	public void insertReservation(HashMap<String, Object> paramMap){
+		movie1DAOImpl.insertReservation(paramMap);
+	};
 
 }

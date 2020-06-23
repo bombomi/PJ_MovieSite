@@ -15,5 +15,6 @@ public interface Movie1Service {
 	public List<TimeTableDto> selectDateByTheaterAndMovie(HashMap<String, String> paramMap);
 	public List<TimeTableDto> selectTimeByDate(HashMap<String, String> paramMap);
 	public Map<String, Object> returnSeatList(HashMap<String, String> paramMap);
-
+	public List<Map<String, String>> returnReservationList(HashMap<String, String> paramMap);
+	public void insertReservation(HashMap<String, Object> paramMap);
 }
