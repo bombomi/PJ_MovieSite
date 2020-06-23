@@ -1,5 +1,6 @@
 package com.movie.mymovie.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,12 +8,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.movie.mymovie.dto.ScreenHallDto;
 import com.movie.mymovie.dto.TheaterDto;
 import com.movie.mymovie.dto.TimeTableDto;
 import com.movie.mymovie.service.Movie1ServiceImpl;
@@ -84,12 +85,48 @@ public class Movie1Controller {
 		retVal.put("movieTimeList", movieTimeList);
 			return retVal;
 	}
-	@RequestMapping(value="/pay")
-	public String pay() {
+	//한현님 오기전에 내가 해보는 좌석선택 페이지.. ㅎㅎㅎ
+	
+	@RequestMapping(value="/selectSeat2")
+	public String selectSeat(@RequestParam HashMap<String, String> paramMap, Model model) {
+		Map<String, Object> scrHallSeatList = movie1ServiceImpl.returnSeatList(paramMap);//최대 열, 자리 리턴
+		List<Map<String, String>> reservationList=movie1ServiceImpl.returnReservationList(paramMap);
+		System.out.println(scrHallSeatList);
+		System.out.println(reservationList);//선택한 곳의 예약 정보 불러오기 완료!
+		List<String> reservationIdList=new ArrayList<String>();
+		for(int i=0;i<reservationList.size();i++) {
+			reservationIdList.add(reservationList.get(i).get("SCRHALLSEAT_ID"));
+		}
+		String scrhall_id=String.valueOf(scrHallSeatList.get("SCRHALL_ID"));
+		model.addAttribute("scrhall_id", scrhall_id);
+		model.addAttribute("theater_id", paramMap.get("theater_id"));
+		model.addAttribute("timetable_id", paramMap.get("timetable_id"));
+		model.addAttribute("reservationCnt", reservationList.size());
+		model.addAttribute("scrHallSeatList",scrHallSeatList);
+		if(reservationList.size()>0) {
+			model.addAttribute("reservationIdList",reservationIdList);}
+		return "movieReservation/selectSeat2";
+	}
+	@RequestMapping(value="/pay",method=RequestMethod.POST)
+	public String pay(@RequestParam HashMap<String, Object> paramMap, Model model) {
+		//System.out.println(paramMap.get("scrhallSeat_id"));
+		//String scrhallSeat_id=(String)paramMap.get("scrhallSeat_id");
+		model.addAttribute("scrhallSeat_id",(String)paramMap.get("scrhallSeat_id"));
+		model.addAttribute("timetable_id", (String)paramMap.get("timetable_id"));
 		return "movieReservation/pay";
 	}
 	@RequestMapping(value="/reservationConfirm")
-	public String reservationConfirm() {
+	public String reservationConfirm(@RequestParam HashMap<String, Object> paramMap, Model model) {
+		int theater_id=Integer.parseInt(String.valueOf(((String)paramMap.get("scrhallSeat_id")).substring(0, 2)));
+		int scrhall_id=Integer.parseInt(String.valueOf(((String)paramMap.get("scrhallSeat_id")).substring(2, 4)));
+		paramMap.put("theater_id", theater_id);
+		paramMap.put("scrhall_id", scrhall_id);
+
+		System.out.println("timetable_id"+(String)paramMap.get("timetable_id"));
+		System.out.println("scrhall_id"+scrhall_id);
+		System.out.println("payPlan"+(String)paramMap.get("payPlan"));
+		
+		movie1ServiceImpl.insertReservation(paramMap);
 		return "movieReservation/reservationConfirm";
 	}
 

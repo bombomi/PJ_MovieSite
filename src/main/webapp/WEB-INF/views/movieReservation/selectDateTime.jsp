@@ -91,7 +91,7 @@ function makeTheaterListHTML(list){
  	<div class="head">
 		<jsp:include page="../head.jsp"></jsp:include>
  	</div>
-<input type="hidden" name="theater_id" value="${theater_id}">
+
 
 
 
@@ -101,17 +101,13 @@ function makeTheaterListHTML(list){
 </c:forEach>
 <br>
 <hr>
-<form action="<%=contextPath%>/selectSeat" method="get">
+<form action="<%=contextPath%>/selectSeat2" method="get">
 	<div id="result"></div>
+	<input type="hidden" name="theater_id" value="${theater_id}">
+	<input type="hidden" name="scrHall_id" value="">
 	<input type="submit" value="좌석 선택">
 	
 </form>
-
-
-		
-
-
-
 
 </body>
 </html>

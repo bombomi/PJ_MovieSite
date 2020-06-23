@@ -30,7 +30,7 @@ $(document).ready(function(){
 		if(document.getElementById("sessionUserId").value == "test" ) {
 			  alert('비회원은 댓글 작성이 불가능합니다.');
 			  return;
-		}
+		} 
 	});
 });
 

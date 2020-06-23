@@ -31,5 +31,26 @@
 		FROM TIMETABLE
 		WHERE TO_CHAR(MOVIE_DATETIME,'YYYYMMDD') = #{movie_dateTime}
 	</select>
+	
+	<select id="returnSeatList" resultType="java.util.Map" parameterType="java.util.HashMap">
+
+		SELECT MAX(SCRHALL_SEATROW) AS SEATROW, MAX(SCRHALL_SEATCOL) AS SEATCOL, MAX(SCRHALL_ID) SCRHALL_ID
+		FROM SCREENHALL
+		WHERE THEATER_ID=#{theater_id} AND SCRHALL_ID=(SELECT SCRHALL_ID
+                                   			FROM TIMETABLE
+                                    		WHERE TIMETABLE_ID=#{timetable_id}
+		)
+	</select>
+	
+	<select id="returnReservationList" resultType="java.util.Map" parameterType="java.util.HashMap">
+			SELECT SCRHALLSEAT_ID
+		FROM RESERVATION
+		WHERE THEATER_ID=#{theater_id} AND TIMETABLE_ID=#{timetable_id}
+		ORDER BY SCRHALLSEAT_ID ASC
+	</select>
+	<insert id="insertReservation" parameterType="java.util.HashMap">
+	INSERT INTO RESERVATION (RESERV_ID, THEATER_ID, SCRHALL_ID, MEMBER_ID, TIMETABLE_ID, PAY_PLAN, SCRHALLSEAT_ID, RESERV_DATE)
+	VALUES (RESERV_ID_SEQ.NEXTVAL, #{theater_id}, #{scrhall_id}, #{member_id}, #{timetable_id}, #{payPlan}, #{scrhallSeat_id}, SYSDATE)
+	</insert>
 		
 </mapper>

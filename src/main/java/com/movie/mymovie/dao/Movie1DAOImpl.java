@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.movie.mymovie.dto.ScreenHallDto;
 import com.movie.mymovie.dto.TheaterDto;
 import com.movie.mymovie.dto.TimeTableDto;
 
@@ -50,15 +51,39 @@ public class Movie1DAOImpl implements Movie1DAO{
 	
 	@Override
 	public List<TimeTableDto> selectTimeByDate(HashMap<String, String> paramMap){
-	System.out.println("movie_dateTime in DAO= "+paramMap.get("movie_dateTime"));
 
 	List<TimeTableDto> movieTimeList=new ArrayList<TimeTableDto>();
 	
 	movieTimeList=sqlSession.selectList(
 			"Movie1Mapper.selectTimeByDate", paramMap);
-	System.out.println("sql호출한 이후");
 	return movieTimeList;
 
 	}
+	
+	@Override
+	public Map<String, Object> returnSeatList(HashMap<String, String> paramMap){
+	Map<String, Object> seatList=new HashMap<String, Object>();
+	
+	seatList=sqlSession.selectOne(
+			"Movie1Mapper.returnSeatList", paramMap);
+	System.out.println("sql-seatList success?");
+	return seatList;
+
+	}
+	public List<Map<String, String>> returnReservationList(HashMap<String, String> paramMap){
+		List<Map<String, String>> reservationList=new ArrayList<Map<String, String>>();
+		
+		reservationList=sqlSession.selectList(
+				"Movie1Mapper.returnReservationList", paramMap);
+		System.out.println("sql-seatList success?");
+		return reservationList;
+	};
+	
+	@Override
+	public void insertReservation(HashMap<String, Object> paramMap) {
+
+		sqlSession.insert("Movie1Mapper.insertReservation" , paramMap);
+	}
+
 
 }
