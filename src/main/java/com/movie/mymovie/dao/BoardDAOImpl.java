@@ -90,6 +90,23 @@ public class BoardDAOImpl implements BoardDAO {
 	public void writeReply(ReplyVO vo) {
 		sqlSession.insert("com.movie.mymovie.dao.BoardDAO.writeReply", vo);
 	}
-
+	
+	// 댓글 수정
+	@Override
+	public void updateReply(ReplyVO vo) {
+		sqlSession.update("com.movie.mymovie.dao.BoardDAO.updateReply", vo);
+	}
+	
+	// 댓글 삭제
+	@Override
+	public void deleteReply(ReplyVO vo) {
+		sqlSession.delete("com.movie.mymovie.dao.BoardDAO.deleteReply", vo);
+	}
+	
+	// 선택된 댓글 조회
+	@Override
+	public ReplyVO selectReply(int reply_id) {
+		return sqlSession.selectOne("com.movie.mymovie.dao.BoardDAO.selectReply", reply_id);
+	}
 
 }

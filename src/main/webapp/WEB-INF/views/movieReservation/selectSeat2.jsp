@@ -53,7 +53,11 @@ function selectImpossibleSeat(event) {
 </script>
 </head>
 <body>
-<h1>자리 선택입니다@@</h1>
+ 	<div class="head">
+		<jsp:include page="../head.jsp"></jsp:include>
+ 	</div>
+
+
 <%	Map<String, String> scrHallSeatList=(Map<String, String>)request.getAttribute("scrHallSeatList");
 	char maxRow=scrHallSeatList.get("SEATROW").charAt(0);//열(a~d)까지 중 최대 값인 d를 받아옴
 	int maxCol=Integer.parseInt(String.valueOf(scrHallSeatList.get("SEATCOL")));//자리(1~8)까지 중 최대 값인 8을 받아옴.

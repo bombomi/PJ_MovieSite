@@ -38,4 +38,13 @@ public class PrintSeatListOnPage {
 
 		return scrHallSeat_id;
 	}
+	
+	static public  String rowColFormat(String scrhallSeat_id) {
+		String returnFormat="";
+
+		char row=(char)(Integer.parseInt(String.valueOf(scrhallSeat_id.substring(4,6)))+64);
+		String col=scrhallSeat_id.substring(6,8);
+		returnFormat=String.valueOf(row)+"열 "+col+"번";
+		return returnFormat;
+	}
 }
