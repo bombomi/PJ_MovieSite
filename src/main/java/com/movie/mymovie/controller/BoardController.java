@@ -43,7 +43,7 @@ public class BoardController {
 		service.contentForm(req, model);
 		List<ReplyVO> replyList = service.readReply(vo.getBoard_id());
 		model.addAttribute("replyList", replyList);
-		logger.info("url --> ContentBoard 댓글... ㅅㅣ발");
+		logger.info("url --> 댓글 조회 ContentBoard");
 		return "board/ContentBoard";
 	}
 
@@ -122,7 +122,6 @@ public class BoardController {
 	@RequestMapping(value = "/modifyView")
 	public String modifyView(HttpServletRequest req, Model model) { 
 		logger.info("url => modifyView");
-
 		service.modifyView(req, model);
 		return "board/modifyView";
 	}
@@ -131,20 +130,69 @@ public class BoardController {
 	@RequestMapping(value = "/modifyPro")
 	public String modifyPro(HttpServletRequest req, Model model) {
 		logger.info("url --> modifyPro");
-
 		service.modifyPro(req, model);
 		return "board/modifyPro";
 	}
 	 
 	// 게시글 댓글 쓰기  
-	@RequestMapping(value = "board/replyWrite", method = RequestMethod.POST)
+	@RequestMapping(value = "board/replyWrite",method = {RequestMethod.POST,RequestMethod.GET})
 	public String replyWrite(ReplyVO vo, HttpServletRequest req, Model model, RedirectAttributes rttr) {
 		logger.info("url --> replyWrite");
+		
 		service.writeReply(vo);
 		rttr.addAttribute("board_id", vo.getBoard_id());
 		rttr.addAttribute("pageNum", req.getParameter("pageNum"));
 		rttr.addAttribute("number", req.getParameter("number"));
 		return "redirect:/ContentBoard";   
-	} 
+	}  
+	
+	// 댓글 수정 GET
+	@RequestMapping(value = "board/replyUpdateView", method = {RequestMethod.POST,RequestMethod.GET})
+	public String replyUpdateView(ReplyVO vo, HttpServletRequest req, Model model) {
+		logger.info("url ===> replyUpdateView");
+		
+		model.addAttribute("replyUpdate", service.selectReply(vo.getReply_id()));
+		model.addAttribute("pageNum", req.getParameter("pageNum"));
+		model.addAttribute("number", req.getParameter("number"));
+		return "board/replyUpdateView";
+	}
+	
+	// 댓글 수정 POST
+	@RequestMapping(value = "board/replyUpdate", method = {RequestMethod.POST,RequestMethod.GET})
+	public String replyUpdate(ReplyVO vo, HttpServletRequest req ,RedirectAttributes rttr) {
+		logger.info("url ===> 댓글 수정 POST");
+		service.updateReply(vo);
+		
+		logger.info("user_id=["+req.getParameter("user_id")+"] pageNum=["+req.getParameter("pageNum")+"]");
+		rttr.addAttribute("board_id", vo.getBoard_id());
+		rttr.addAttribute("pageNum", req.getParameter("pageNum"));
+		rttr.addAttribute("number", req.getParameter("number"));
+		return "redirect:/ContentBoard";   
+	}
+	
+	// 댓글 삭제 GET
+	@RequestMapping(value = "board/replyDeleteView", method = {RequestMethod.POST,RequestMethod.GET})
+	public String replyDeleteView(ReplyVO vo,  HttpServletRequest req, Model model) {
+		logger.info("url --> replyDeleteView");
+		
+		model.addAttribute("replyDelete", service.selectReply(vo.getReply_id()));
+		model.addAttribute("pageNum", req.getParameter("pageNum"));
+		model.addAttribute("number", req.getParameter("number"));
+		
+		return "board/replyDeleteView";
+	}
+	
+	// 댓글 삭제
+	@RequestMapping(value = "board/replyDelete", method = {RequestMethod.POST,RequestMethod.GET})
+	public String replyDelete(ReplyVO vo, HttpServletRequest req ,RedirectAttributes rttr) {
+		logger.info("url --> replyDelete");
+		
+		service.deleteReply(vo);
+		rttr.addAttribute("board_id", vo.getBoard_id());
+		rttr.addAttribute("pageNum", req.getParameter("pageNum"));
+		rttr.addAttribute("number", req.getParameter("number"));
+		return "redirect:/ContentBoard";   
+		
+	}
 
 }
