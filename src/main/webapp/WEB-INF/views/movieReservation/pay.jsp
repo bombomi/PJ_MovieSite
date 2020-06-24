@@ -14,6 +14,8 @@
  	</div>
 <hr>
 <form action="reservationConfirm" method="post">
+<input type="hidden" name = "member_id" value="${member.getMember_id()}">
+
 <h3>결제 수단 선택</h3>
 <hr>
 <input type="radio" name="payPlan" value="creditCard">신용카드 <br>
@@ -21,7 +23,6 @@
 <p>결제금액 : 10000원</p>
 <input type="hidden" name="scrhallSeat_id" value="<%=(String)request.getAttribute("scrhallSeat_id")%>"> 
 <input type="hidden" name="timetable_id" value="<%=(String)request.getAttribute("timetable_id")%>"> 
-<input type="hidden" name="member_id" value="a"> 
 
 <input type="submit" value="결제하기">
 </form>
