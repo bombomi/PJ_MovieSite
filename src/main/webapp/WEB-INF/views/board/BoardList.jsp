@@ -41,6 +41,7 @@ a{
 	
 	<form action="<%=contextPath %>/searchWord" method="post">
 	<input type="hidden" name="pageNum" value="${pageNum}">
+	<input type="hidden" name="number" value="${number}">
 	<table>
 		<tr>
 			<th colspan="6" align="center" style="height: 25px">글 목록

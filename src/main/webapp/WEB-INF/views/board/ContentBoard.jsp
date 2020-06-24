@@ -44,10 +44,18 @@ $(document).ready(function(){
 	
 	// 댓글 삭제 View
 	$(".replyDeleteBtn").on("click", function() {
-		location.href = "board/replyDeleteView?board_id=${dto.board_id}"
-						+"&pageNum=${pageNum}"
-						+"&number=${number}"
-						+"&reply_id="+$(this).attr("data-reply_id");
+// 		location.href = "board/replyDeleteView?board_id=${dto.board_id}"
+// 						+"&pageNum=${pageNum}"
+// 						+"&number=${number}"
+// 						+"&reply_id="+$(this).attr("data-reply_id");
+		if(confirm("댓글을 삭제하시겠습니까?")){    //확인
+	 		location.href = "board/replyDelete?board_id=${dto.board_id}"
+	 						+"&pageNum=${pageNum}"
+	 						+"&number=${number}"
+	 						+"&reply_id="+$(this).attr("data-reply_id");
+		 }else{   //취소
+		     return false;
+		 }
 	});
 });
 
@@ -124,6 +132,7 @@ $(document).ready(function(){
 		    <input type="hidden" name="number" value="${number}">
 		    <input type="hidden" id="user_id" name="user_id" value="${sessionUserId}"/>
 		<table>
+		
 			<tr>
 				<td colspan="4">
 				<textarea cols="80" rows="5" class = "comment_contents" id = "comment_contents" name = "comment_contents"></textarea>

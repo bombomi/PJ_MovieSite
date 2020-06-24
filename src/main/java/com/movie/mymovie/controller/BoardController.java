@@ -66,12 +66,14 @@ public class BoardController {
 	}
 
 	// 게시판 조회
-	@RequestMapping(value = "/searchWord")
-	public String searchWord(@RequestParam HashMap<String, String> paramMap, Model model) {
+	@RequestMapping(value = "/searchWord", method = {RequestMethod.POST,RequestMethod.GET})
+	public String searchWord(@RequestParam HashMap<String, String> paramMap, HttpServletRequest req, Model model) {
 		logger.info("url --> searchWord");
 
 		List<BoardVO> boardVo = service.searchWord(paramMap);
 		model.addAttribute("dtos", boardVo);
+		model.addAttribute("pageNum" + req.getParameter("pageNum"));
+		model.addAttribute("number" + req.getParameter("number"));
 		System.out.println("boardVo" + boardVo);
 
 		if (boardVo != null) {
