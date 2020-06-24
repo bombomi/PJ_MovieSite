@@ -23,7 +23,6 @@ public class MypageServiceImpl implements MypageService {
 
 	}
 
-
 	@Override
 	public UserDto selectInfo(String id) throws Exception {
 
@@ -33,9 +32,9 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public void updateUserList(UserDto Dto) throws Exception {
 		// TODO Auto-generated method stub
-		mypageDAO.updateUserList(Dto);	
+		mypageDAO.updateUserList(Dto);
 	}
-	
+
 	@Override
 	public void deleteUserList(UserDto Dto) throws Exception {
 		mypageDAO.deleteUserList(Dto);

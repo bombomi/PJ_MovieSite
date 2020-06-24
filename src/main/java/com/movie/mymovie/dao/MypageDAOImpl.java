@@ -5,15 +5,20 @@ import java.util.List;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
+import com.movie.mymovie.controller.MyPageController;
+import com.movie.mymovie.controller.loginController;
 import com.movie.mymovie.dto.UserDto;
 
 @Repository
 public class MypageDAOImpl implements MypageDAO {
 
+	private final Logger log = LoggerFactory.getLogger(MypageDAOImpl.class);
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
@@ -40,10 +45,11 @@ public class MypageDAOImpl implements MypageDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 	@Override
 	public void deleteUserList(UserDto Dto) throws Exception {
-				
-		sqlSession.delete("MypageMapper.deleteUserList", Dto);
-		
+		log.info("member_id=[" + Dto.getMember_id() + "]");
+		log.info(Dto + "");
+		sqlSession.delete("MypageMapper.deleteUserList", Dto.getMember_id());
 	}
 }

@@ -39,7 +39,7 @@ public class MyPageController {
 			System.out.println("force set session to test1");
 
 		}
-
+		model.addAttribute("flag", 0);
 		return "mypage/index";
 	}
 
@@ -59,21 +59,23 @@ public class MyPageController {
 
 	// 마이페이지 메인
 	@RequestMapping(value = "/myPage/MainForm")
-	public String view(Model model, HttpSession session) {
+	public String view(Model model, HttpSession session, HttpServletRequest request) {
 //		log.debug("called ------------------------------------------------");
-		
+
 		log.info("MainForm start");
+		log.info("flag=[" + request.getParameter("flag") + "]");
 		UserDto UserInfo = new UserDto();
 		UserDto sessionDto = (UserDto) session.getAttribute("member");
-		
-		
+
 		try {
 			UserInfo = service.selectInfo(sessionDto.getMember_id());
-			log.info(UserInfo+"");
+			log.info(UserInfo + "");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		model.addAttribute("flag", request.getParameter("flag") + "");
 		model.addAttribute("UserInfo", UserInfo);
 		return "mypage/MainForm";
 	}
@@ -109,54 +111,51 @@ public class MyPageController {
 		model.addAttribute("list", UserList);
 		return "mypage/MainForm";
 	}
-	//닉네임 ,이메일 정보 넘기기
+
+	// 닉네임 ,이메일 정보 넘기기
 	@RequestMapping(value = "/selectInfo")
 	public String selectInfo(Model model) {
-		
+
 		return "mypage/MainForm";
 	}
-	//정보 수정
+
+	// 정보 수정
 //	@RequestMapping(value = "myPage/ModifyForm")
 //	public String registerUpdateView() throws Exception{
 //			return "myPage/index";
 //	}
 //	
-	@RequestMapping(value="/updateUserList")
-	public String registerUpdate(UserDto Dto, HttpSession session) throws Exception{
-		log.info(Dto+"");
+	@RequestMapping(value = "/updateUserList")
+	public String registerUpdate(UserDto Dto, HttpSession session, Model model) throws Exception {
+		log.info(Dto + "");
 		service.updateUserList(Dto);
-		
-		session.invalidate();
-		
+
+//		session.invalidate();
+		model.addAttribute("flag", "U");
 		return "redirect:/myPage/MainForm";
 	}
-	// 회원 탈퇴 get
-		@RequestMapping(value="/deleteUserList" )
-		public String deleteUserList() throws Exception{
-			return "index";
+
+//	// 회원 탈퇴 get
+//		@RequestMapping(value="/deleteUserList" )
+//		public String deleteUserList() throws Exception{
+//			return "index";
+//		}
+//		
+	// 회원 탈퇴 post
+	@RequestMapping(value = "/deleteUserList")
+	public String memberDelete(UserDto Dto, HttpSession session, RedirectAttributes rttr) throws Exception {
+
+		// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
+		UserDto member = (UserDto) session.getAttribute("member");
+		// 세션에있는 비밀번호
+		String sessionId = member.getMember_id();
+
+		if (!(sessionId.equals(sessionId))) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/index";
 		}
-		
-		// 회원 탈퇴 post
-		@RequestMapping(value="/memberDelete" )
-		public String memberDelete(UserDto Dto, HttpSession session, RedirectAttributes rttr) throws Exception{
-			
-			// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
-			UserDto member = (UserDto) session.getAttribute("member");
-			// 세션에있는 비밀번호
-			String sessionId = member.getMember_id();
-			
-			String sessionPwd = member.getMember_pwd();
-			
-			String sessionNick = member.getMember_nick();
-			
-			String sessionEmail = member.getMember_email();
-			
-			if(!(sessionId.equals(sessionId))) {
-				rttr.addFlashAttribute("msg", false);
-				return "redirect:/index";
-			}
-			service.deleteUserList(Dto);
-			session.invalidate();
-			return "redirect:/";
-		}
+		service.deleteUserList(member);
+		session.invalidate();
+		return "redirect:/main/index";
+	}
 }

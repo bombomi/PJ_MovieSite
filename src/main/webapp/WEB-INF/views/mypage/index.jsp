@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><%-- JSTL Core --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%><%-- JSTL Function --%>
-
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +22,10 @@
 	rel="stylesheet">
 
 
+<script type="text/javascript"
+	src="<c:url value ='/vendor/jquery/jquery.min.js'/>" /></script>
+<script type="text/javascript"
+	src="<c:url value ='/js/jquery-3.3.1.min.js'/>" /></script>
 
 <!-- Vendor CSS Files -->
 <link href="<c:url value ='/vendor/icofont/icofont.min.css'/>"
@@ -47,8 +53,7 @@ html, body {
 	height: 100%;
 }
 
-.head {
-	height 150%;
+.head {height 150%;
 	overflow-y: visible;
 }
 
@@ -83,34 +88,43 @@ html, body {
 			break;
 
 		case 0:
-			default:
+		default:
 			document.getElementById("right_pane").innerHTML = '<object style="width:100%;height:100%" type="text/html" data="/mymovie/myPage/MainForm" ></object>';
 
 		}
 	}
 	function signout() {
 		if (confirm("정말로 탈퇴 하시겠습니까?")) {
-			console.log("You pressed OK!");
+			$("#myFrom").submit();
 		} else {
 			console.log(txt = "You pressed Cancel!");
 		}
 	}
-	document.addEventListener('DOMContentLoaded', function() {
-		loadPage(3);
-	}, false);
+
+	$(document).ready(function() {
+		var flag = "${flag}";
+
+		if (flag == 0) {
+			loadPage(flag);
+		}
+	});
 </script>
 </head>
 <body>
+	<form id="myFrom" action="<%=contextPath%>/deleteUserList"
+		method="post"></form>
+
 	<div class="container-fluid">
 		<div class="head">
 			<jsp:include page="../head.jsp"></jsp:include>
 		</div>
 		<div class="row body-fill">
+
 			<div class="w-25 p-3 border-right border-top" id="left_pane">
 				<br>
 				<div onclick="loadPage(0)">내 정보</div>
-<!-- 				<br> -->
-<!-- 				<div onclick="loadPage(0)">정보수정</div> -->
+				<!-- 				<br> -->
+				<!-- 				<div onclick="loadPage(0)">정보수정</div> -->
 				<br> <br>
 				<div onclick="loadPage(1)">예매내역</div>
 				<br> <br>
@@ -118,6 +132,7 @@ html, body {
 				<br> <br> <br> <br> <br>
 				<div onclick="signout()">회원탈퇴</div>
 			</div>
+
 			<div class="w-75 p-3 border-top" id="right_pane"></div>
 		</div>
 	</div>
