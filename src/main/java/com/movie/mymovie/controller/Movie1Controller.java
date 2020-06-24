@@ -108,6 +108,7 @@ public class Movie1Controller {
 			model.addAttribute("reservationIdList",reservationIdList);}
 		return "movieReservation/selectSeat2";
 	}
+	
 	@RequestMapping(value="/pay",method=RequestMethod.POST)
 	public String pay(@RequestParam HashMap<String, Object> paramMap, Model model) {
 		//System.out.println(paramMap.get("scrhallSeat_id"));

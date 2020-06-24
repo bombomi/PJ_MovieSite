@@ -7,6 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+h3{
+	text-align: center;
+}
+table{
+	margin: 0 auto;
+}
+#confirmCategory{
+	width: 150px;
+	height: 30px;
+}
+#confirmContents{
+	width: 180px;
+	height: 30px;
+	
+}
+</style>
 </head>
 <body>
  	<div class="head">
@@ -18,7 +35,11 @@
 <h3>예약이 완료되었습니다!</h3>
 <hr>
 <table>
-
+	<tr>
+		<th id="confirmCategory"></th>
+		<th id="confirmContents"></th>		
+	</tr>
+	
 	<tr>
 		<td>영화제목
 		</td>

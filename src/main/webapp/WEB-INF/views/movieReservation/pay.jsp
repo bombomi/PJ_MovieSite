@@ -7,11 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#contents{
+	text-align:center;
+}
+</style>
 </head>
 <body>
  	<div class="head">
 		<jsp:include page="../head.jsp"></jsp:include>
  	</div>
+ 	<div id="contents">
 <hr>
 <form action="reservationConfirm" method="post">
 <input type="hidden" name = "member_id" value="${member.getMember_id()}">
@@ -26,8 +32,7 @@
 
 <input type="submit" value="결제하기">
 </form>
-결제 페이지입니다. 결제 방식 선택, 결제 금액 확인
-<a href="<%=contextPath%>/reservationConfirm">결제하기</a>
 
+</div>
 </body>
 </html>
