@@ -44,88 +44,16 @@ public class LoginServiceImpl implements LoginService{
 		return result;
 	}
 	
+	//아이디찾기
 	@Override 
 	public List<UserDto> findId(UserDto userDto) throws Exception { 
 	return loginDao.findId(userDto); 
 	} 
 	
-	@Override public String findPwd(UserDto userDto) throws Exception { 
+	//비밀번호찾기
+	@Override 
+	public List<UserDto> findPwd(UserDto userDto) throws Exception { 
 	return loginDao.findPwd(userDto); 
 	}
-	
-	
-//	@Override
-//	public int OverlapCheck(String id, List<String> idList) {
-//		System.out.println(idList);
-//		for (String temp : idList) {
-//			if(id.equals(temp)) {
-//				return -1;
-//			}
-//		}
-//		return 0;
-//	}
-//
-//	@Override
-//	public int idCheck(String id) {
-//		for(int i = 0; i < id.length(); i++) {
-//			char temp = id.charAt(i);
-//			
-//			if((temp < '0' || temp > '9') && (temp < 'A' || temp > 'Z') && (temp < 'a' || temp > 'z')) {
-//				return -1;
-//			}else {
-//				continue;
-//			}
-//		}
-//		return 0;
-//	}
-//
-//	@Override
-//	public int pwdCheck(String pwd) {
-//		for(int i = 0; i < pwd.length(); i++) {
-//			char temp = pwd.charAt(i);
-//			if((temp < '0' || temp > '9') && (temp < 'A' || temp > 'Z') && (temp < 'a' || temp > 'z'))
-//				return -1;
-//			else
-//				continue;
-//			
-//		}
-//		return 0;
-//	}
-//
-//	@Override
-//	public int pwdEqualCheck(String pwd, String pwdck) {
-//		if(pwd.equals(pwdck)) {
-//			return 0;
-//		}else {
-//			return -1;
-//		}
-//	}
-//
-//	@Override
-//	public int nickCheck(String nick) {
-//		for(int i = 0; i < nick.length(); i++) {
-//			char temp = nick.charAt(i);
-//			
-//			if((temp < '0' || temp > '9') && (temp < 'A' || temp > 'Z') && (temp < 'a' || temp > 'z')) {
-//				return -1;
-//			}else {
-//				continue;
-//			}
-//		}
-//		return 0;
-//	}
-//
-//	@Override
-//	public int lengthCheck(String id, int length) {
-//		if(id.length()<length) {
-//			return -1;
-//		}
-//		return 0;
-//	}
 
-//	@Override
-//	public UserDto getUser(UserDto userDto) throws Exception {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 }
