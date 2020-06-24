@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><%-- JSTL Core --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%><%-- JSTL Function --%>
-
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,40 +17,41 @@ table {
 </style>
 </head>
 <body>
-
+<form action="<%=contextPath%>/updateUserList" method="get">
+      <input type="hidden" name="id" value="${USerDto.member_id}">
 	<table>
 		<tr>
-			<td>아이디
-			<td><input type="text" name="name">
+			<td>아이디</td>
+			<td><input type="text"></td>
 		</tr>
 
 		<tr>
-			<td>비밀번호
-			<td><input type="password">
+			<td>비밀번호</td>
+			<td><input type="password"></td>
 		</tr>
 
 		<tr>
-			<td>닉네임
-			<td><input type="text">
+			<td>닉네임</td>
+			<td><input type="text"></td>
 		</tr>
 
 		<tr>
-			<td>휴대폰
-			<td>010 - <input type="text" style="width: 50px;"> - <input
-				type="text" style="width: 50px;">
-		</tr>
-
-		<tr>
-			<td>이메일
+			<td>이메일</td>
 			<td><input type="text">@ <select>
 					<option>naver.com</option>
 					<option>nate.com</option>
-			</select>
+					<option>gmail.com</option>
+					<option>hotmail.com</option>
+					<option>hanmail.net</option>
+
+			</select></td>
+		</tr>
+		<tr>
+		<th rowspan="2"><input type="submit" value="수정"></th>
 		</tr>
 
-
 	</table>
-	<br>
+	</form>
 
 </body>
 </html>
