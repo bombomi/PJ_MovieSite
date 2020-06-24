@@ -33,7 +33,7 @@
               </c:if>
               
               <a href="<%=contextPath %>/BoardList">Community</a>
-              <a href="<%=contextPath %>/myPage/myPage" >My Page</a>
+              <a href="<%=contextPath %>/myPage" >My Page</a>
             </div>
           </div>
         </div>

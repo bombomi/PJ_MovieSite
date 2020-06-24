@@ -6,16 +6,33 @@
 <mapper namespace="MypageMapper">
 
 	<!-- 마이페이지 회원 정보 조회 -->
-	<select id="UserAllList" resultType="com.movie.mymovie.dao.MypageDAO">
-		SELECT  SEQ, 
-	             MEMBER_ID,
+	<select id="UserAllList" resultType="com.movie.mymovie.dto.UserDto">
+		SELECT  MEMBER_ID,
 	             MEMBER_NICK,
 	       		MEMBER_PWD,
 	       		MEMBER_EMAIL,
 	       		MEMBER_EMAIL2,
 	       		MEMBER_PIC     
 		FROM    MEMBER
-		ORDER BY ID ASC
+		WHERE MEMBER_ID=#{member_id}
+		ORDER BY MEMBER_ID ASC
 	</select>
 	
+	<!-- 회원 정보 수정 -->
+	<update id="updateUserList">
+		UPDATE  MEMBER SET     
+		MEMBER_PWD = #{member_pwd}
+		, MEMBER_NICK = #{member_nick}
+		, MEMBER_EMAIL = #{member_email}
+		WHERE MEMBER_ID=#{member_id}
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="memberDelete">
+		DELETE FROM	MEMBER SET
+		MEMBER_PWD = #{member_pwd}
+		, MEMBER_NICK = #{member_nick}
+		, MEMBER_EMAIL = #{member_email}
+		WHERE MEMBER_ID=#{member_id}
+	</delete>
 </mapper>
