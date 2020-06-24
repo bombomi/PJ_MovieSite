@@ -36,13 +36,13 @@ $(document).ready(function(){
 	        	$('input[type="checkbox"][name="place"]').prop('checked',false);
 	        	$(this).prop('checked', true);
 
-	        	var userId = $("#userId").val();
+	        	
 	        	//체크박스에 표시한 값들을 넘김.
 	        	var checkboxValue;
 	        	$('input[name="place"]:checked').each(function(i){
 	        		checkboxValue=$(this).val();
 	        	});
-	        	var allData = { "userId": userId, "checkboxValue": checkboxValue };
+	        	var allData = {"checkboxValue": checkboxValue };
 	        	$.ajax({
 	        		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 	        	    url:"<%=contextPath%>/ajaxTheaterSelect",
@@ -89,7 +89,9 @@ function makeTheaterListHTML(list){
 }
 </script>
 <style>
-
+	#contents{
+		text-align:center;
+	}
 </style>
 </head>
 <body>
@@ -99,8 +101,7 @@ function makeTheaterListHTML(list){
 영화관 선택하기
 <hr width="80%">
 
-
-<input type="hidden" id="userId" value="abcd">
+<div id="contents">
 <input type="checkbox" name="place" value="seoul">서울
 <input type="checkbox" name="place" value="gyeong-gi">경기
 <input type="checkbox" name="place" value="busan">부산
@@ -115,13 +116,13 @@ result
 
 <div id="result"></div>
 <br>
-<input type="hidden" name="member_id" value="test">
+<input type="hidden" name="member_id" value="${member.getMember_id()}">
 <input type="hidden" name="movie_id" value="20183813">
 <input type="submit" value="날짜, 시간 선택">
 
 </form>
 
 
-
+</div>
 </body>
 </html>

@@ -29,7 +29,7 @@
 	<select id="selectTimeByDate" resultType="com.movie.mymovie.dto.TimeTableDto" parameterType="java.util.HashMap">
 		SELECT THEATER_ID, MOVIE_ID, TIMETABLE_ID, TO_CHAR(MOVIE_DATETIME, 'hh24:mi') AS MOVIE_DATETIME
 		FROM TIMETABLE
-		WHERE TO_CHAR(MOVIE_DATETIME,'YYYYMMDD') = #{movie_dateTime}
+		WHERE TO_CHAR(MOVIE_DATETIME,'YYYYMMDD') = #{movie_dateTime} AND THEATER_ID=#{theater_id}
 	</select>
 	
 	<select id="returnSeatList" resultType="java.util.Map" parameterType="java.util.HashMap">
@@ -60,8 +60,8 @@
 	</select>
 	
 	<select id="confirmInfo" resultType="java.util.Map" parameterType="java.util.HashMap">
-	SELECT THEATER.THEATER_NAME, SCRHALL_ID, TIMETABLE.MOVIE_DATETIME,MOVIE_TITLE
+	SELECT THEATER.THEATER_NAME, SCRHALL_ID, TO_CHAR(TIMETABLE.MOVIE_DATETIME,'yyyymmdd hh24:mi') AS MOVIE_DATETIME,MOVIE_TITLE
 	FROM   TIMETABLE, THEATER, MOVIE
-	WHERE TIMETABLE.TIMETABLE_ID=#{timetable_id} AND THEATER.THEATER_ID=TIMETABLE.THEATER_ID
+	WHERE TIMETABLE.TIMETABLE_ID=#{timetable_id} AND THEATER.THEATER_ID=TIMETABLE.THEATER_ID AND TIMETABLE.MOVIE_ID=MOVIE.MOVIE_ID
 	</select>	
 </mapper>

@@ -9,7 +9,6 @@
 	<select id="getArticleCnt" resultType="int">
 		SELECT COUNT(*) as cnt FROM board
 	</select>
-	
 
 	<!-- 게시글 목록 조회 -->
 	<!-- map.put("key", value) => rNum=#{key} AND rNum=#{key} -->
@@ -60,7 +59,7 @@
 	
 	<!-- 댓글 조회 -->
 	<select id="readReply" resultType="com.movie.mymovie.vo.ReplyVO">
-		select b.user_id, a.board_id, b.COMMENT_CONTENTS, b.reg_date from board a, reply b where a.board_id = b.board_id and a.board_id = #{board_id}
+		select b.user_id, a.board_id, b.COMMENT_CONTENTS, b.reg_date, b.reply_id from board a, reply b where a.board_id = b.board_id and a.board_id = #{board_id}
 	</select>
 	
 	<!-- 댓글 작성 -->
@@ -68,5 +67,20 @@
 		INSERT INTO reply(REPLY_ID, BOARD_ID, USER_ID, COMMENT_CONTENTS, REG_DATE)
     		 VALUES(reply_seq.nextval, #{board_id}, #{user_id}, #{comment_contents}, SYSDATE)
 	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="com.movie.mymovie.vo.ReplyVO">
+		UPDATE reply set comment_contents = #{comment_contents}  WHERE reply_id = #{reply_id}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="com.movie.mymovie.vo.ReplyVO">
+		delete from reply where reply_id = #{reply_id}
+	</delete>
+	
+	<!-- 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="com.movie.mymovie.vo.ReplyVO">
+		select REPLY_ID, BOARD_ID, USER_ID, COMMENT_CONTENTS, REG_DATE from reply WHERE reply_id = #{reply_id}
+	</select>
 		
 </mapper>
