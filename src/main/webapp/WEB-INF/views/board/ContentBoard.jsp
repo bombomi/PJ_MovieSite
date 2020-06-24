@@ -23,11 +23,31 @@ $(document).ready(function(){
 	$(".replyWritnBtn").on("click", function(){
 		if(document.getElementById("user_id").value == "test" ) {
 			  alert('비회원은 댓글 작성이 불가능합니다.');
-		} else{
+		} 
+		else if(document.getElementById("comment_contents").value == "") 
+		{ 
+			alert("댓글을 입력하세요.");		  
+		} else {
 			var formObj = $("form[name='replyForm']");
 			formObj.attr("action", "<%=contextPath%>/board/replyWrite");
 			formObj.submit();
 		}
+	});
+	
+	// 댓글 수정 View
+	$(".replyUpdateBtn").on("click", function() {
+		location.href = "board/replyUpdateView?board_id=${dto.board_id}"
+						+"&pageNum=${pageNum}"
+						+"&number=${number}"
+						+"&reply_id="+$(this).attr("data-reply_id");
+	});
+	
+	// 댓글 삭제 View
+	$(".replyDeleteBtn").on("click", function() {
+		location.href = "board/replyDeleteView?board_id=${dto.board_id}"
+						+"&pageNum=${pageNum}"
+						+"&number=${number}"
+						+"&reply_id="+$(this).attr("data-reply_id");
 	});
 });
 
@@ -106,7 +126,7 @@ $(document).ready(function(){
 		<table>
 			<tr>
 				<td colspan="4">
-				<textarea cols="80" rows="5" id = "comment_contents" name = "comment_contents"></textarea>
+				<textarea cols="80" rows="5" class = "comment_contents" id = "comment_contents" name = "comment_contents"></textarea>
 				<td colspan="1"><button type="button" class="replyWritnBtn">등록</button>
 			</tr>
 			<hr>
@@ -116,7 +136,13 @@ $(document).ready(function(){
 				<td> ${replyList.user_id } 
 				<td colspan="2"> ${replyList.comment_contents }
 				<td> ${replyList.reg_date }
+				<c:if test='${replyList.user_id == sessionUserId}'>
+					<td colspan="2"> 
+					<button type="button" class="replyUpdateBtn" data-reply_id="${replyList.reply_id }">수정</button>
+					<button type="button" class="replyDeleteBtn" data-reply_id="${replyList.reply_id }">삭제</button>
+				</c:if>
 			</tr>
+		
 			</c:forEach>
 		</table>
 		</form>

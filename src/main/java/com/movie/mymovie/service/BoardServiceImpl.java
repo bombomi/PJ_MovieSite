@@ -42,6 +42,7 @@ public class BoardServiceImpl implements BoardService {
 		// 글 갯수 구하기 (cnt)
 		cnt = dao.getArticleCnt();
 		System.out.println("글 목록 cnt : " + cnt);
+
 		
 		pageNum = req.getParameter("pageNum");
 		
@@ -235,6 +236,24 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void writeReply(ReplyVO vo) {
 		dao.writeReply(vo);
+	}
+	
+	// 댓글 수정
+	@Override
+	public void updateReply(ReplyVO vo) {
+		dao.updateReply(vo);
+	}
+	
+	// 댓글 삭제
+	@Override
+	public void deleteReply(ReplyVO vo) {
+		dao.deleteReply(vo);
+	}
+	
+	// 선택된 댓글 조회
+	@Override
+	public ReplyVO selectReply(int reply_id) {
+		return dao.selectReply(reply_id);
 	}
 
 }
