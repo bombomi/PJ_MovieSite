@@ -26,13 +26,13 @@ function selectPossibleSeat(event) {
     var selectResult=document.getElementById("result");
     var selectSeat=document.getElementById(id);
     for (i = 0; i < allSeat.length; i++) {
-    	allSeat[i].style.color="#000000";
+    	allSeat[i].style.backgroundColor="#FFFFFF";
     	}
-    selectSeat.style.color="#FF0000";
+    selectSeat.style.backgroundColor="#FF0000";
     var selectedRow=String.fromCharCode(Number(id.substring(4, 6))+64);
     var selectedCol=Number(id.substring(6, 8));
     var html_="";
-    html_+="선택된 자리는? "+selectedRow+"열"+selectedCol+"번"+"<br> 결제금액 : 10000원";
+    html_+=selectedRow+"열"+selectedCol+"번"+"<br> 결제금액 : 10000원";
     html_+="<input type='hidden' name='scrhallSeat_id' value='";
     html_+=id;
     html_+="'>";
@@ -43,7 +43,7 @@ function selectImpossibleSeat(event) {
     var selectResult=document.getElementById("result");
     var allSeat=document.getElementsByName("scrHallSeat");
     for (i = 0; i < allSeat.length; i++) {
-    	allSeat[i].style.color="#FFFFFF";
+    	allSeat[i].style.backgroundColor="#FFFFFF";
     	}
     var id=event.target.id;
     var html_="";
@@ -51,9 +51,21 @@ function selectImpossibleSeat(event) {
     selectResult.innerHTML=html_;
 }
 </script>
+<style>
+#contents{
+	text-align: center;
+}
+table{
+	margin:0 auto;
+}
+</style>
 </head>
 <body>
-<h1>자리 선택입니다@@</h1>
+ 	<div class="head">
+		<jsp:include page="../head.jsp"></jsp:include>
+ 	</div>
+
+<div id="contents">
 <%	Map<String, String> scrHallSeatList=(Map<String, String>)request.getAttribute("scrHallSeatList");
 	char maxRow=scrHallSeatList.get("SEATROW").charAt(0);//열(a~d)까지 중 최대 값인 d를 받아옴
 	int maxCol=Integer.parseInt(String.valueOf(scrHallSeatList.get("SEATCOL")));//자리(1~8)까지 중 최대 값인 8을 받아옴.
@@ -75,8 +87,8 @@ String scrHallSeat_id=PrintSeatListOnPage.printPage(Integer.parseInt((String)req
 <%if(scrHallSeat_id.equals(String.valueOf(reservationIdList.get(reservIndex)))){
 	//System.out.println("equal=="+reservationIdList.get(reservIndex));
 %>
-<td value="<%=scrHallSeat_id%>" id="<%=scrHallSeat_id%>" name="scrHallSeatReserved" onclick="selectImpossibleSeat(event)">
-■
+<td value="<%=scrHallSeat_id%>" id="<%=scrHallSeat_id%>" name="scrHallSeatReserved" onclick="selectImpossibleSeat(event)" style="background-color: black;">
+&nbsp;&nbsp;&nbsp;
 </td>
 <%		
 if(reservIndex<(reservationIdList.size()-1))
@@ -84,7 +96,7 @@ if(reservIndex<(reservationIdList.size()-1))
 
 	}else{%>
 <td value="<%=scrHallSeat_id%>" id="<%=scrHallSeat_id%>" name="scrHallSeat" onclick="selectPossibleSeat(event)">
-□
+&nbsp;&nbsp;&nbsp;
 </td>		
 
 	<%}
@@ -108,7 +120,7 @@ int reservIndex=0;
 				Integer.parseInt((String)request.getAttribute("scrhall_id")), j,i);
 			%>
 			<td value="<%=scrHallSeat_id%>" id="<%=scrHallSeat_id%>" name="scrHallSeat" onclick="selectPossibleSeat(event)">
-				□
+				&nbsp;&nbsp;&nbsp;
 			</td>		
 			<%}%>
 		</tr>
@@ -117,13 +129,13 @@ int reservIndex=0;
 </table>
 </c:if>
 <hr>
-<h5>선택된 좌석은?</h5><br>
+<h5>자리 선택</h5><br>
 <form action="<%=contextPath%>/pay" method="post">
 	<div id="result"></div>
 	<input type="hidden" name="timetable_id" value="<%=(String)request.getAttribute("timetable_id")%>">
 	
 	<input type="submit" value="예매하기">
 </form>
-
+</div>
 </body>
 </html>

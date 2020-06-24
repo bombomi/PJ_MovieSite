@@ -24,6 +24,10 @@ table {
 	width: 100px;
 	margin: auto;	
 }
+
+a{
+	text-decoration: none;
+}
 </style>
 </head>
 <body>
@@ -37,6 +41,7 @@ table {
 	
 	<form action="<%=contextPath %>/searchWord" method="post">
 	<input type="hidden" name="pageNum" value="${pageNum}">
+	<input type="hidden" name="number" value="${number}">
 	<table>
 		<tr>
 			<th colspan="6" align="center" style="height: 25px">글 목록
@@ -55,18 +60,19 @@ table {
 			<th style="width: 15%">작성일</th>
 			<th style="width: 5%">조회수</th>
 		</tr>
+		
 
 		<!-- 게시글이 있으면  -->
 		<c:if test="${cnt > 0 }">
 			<c:forEach var="dto" items="${dtos}" varStatus="status">
 				<tr>
 					<td align="center">${board_id} 
-					<c:set var="number" value="${number-1}" /> (${dto.board_id})
+					<c:set var="number" value="${number-1}" /> ${dto.board_id}
 					</td>
 
 					<td align="left">
-						<!-- 상세페이지 --> <a
-						href="ContentBoard?board_id=${dto.board_id}&pageNum=${pageNum}&number=${number+1}">${dto.board_title}</a>
+						<!-- 상세페이지 --> 
+						<a href="ContentBoard?board_id=${dto.board_id}&pageNum=${pageNum}&number=${number+1}">${dto.board_title}</a>
 					</td>
 
 					<td align="center">${dto.user_id}</td>

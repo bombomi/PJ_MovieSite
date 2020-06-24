@@ -92,8 +92,7 @@ function makeTheaterListHTML(list){
 		<jsp:include page="../head.jsp"></jsp:include>
  	</div>
 
-
-
+<input type="hidden" name = "user_id" value="${member.getMember_id()}">
 
 <c:forEach var="movieDateList" items="${movieDateList}" varStatus="status">
 

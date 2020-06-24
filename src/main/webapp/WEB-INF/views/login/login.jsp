@@ -96,26 +96,29 @@
 		margin-bottom: 5px;
 	}
 </style>
-<!-- 
+
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#submit").on("click", function(){
-			location.href='/login/islogin';
-		})
 		
-	})
-</script> -->
-<!-- <script type = "text/javascript">
- 	$(document).ready(function(){
- 		$("#loginBtn").on("click",function(){
-			consol.log(${success}.val());
- 			if(${success == false}) {
- 				alert("아이디와 비밀번호를 확인해주세요.");
- 				return false;
- 			};
- 		});
- 	});
-</script> -->
+		var errorMsg = "${errorMsg}";
+		
+		if(errorMsg !="")
+		{
+			alert(errorMsg);
+			return false;
+		}
+		
+		var errorMsg2 = "${errorMsg2}";
+		
+		if(errorMsg2 !="")
+		{
+			alert(errorMsg2);
+			return false;
+		}
+		
+	});
+</script>
+
 </head>
 <body>
  	<div class="head">
