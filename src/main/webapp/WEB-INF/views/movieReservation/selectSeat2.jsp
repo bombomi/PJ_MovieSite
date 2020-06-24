@@ -58,6 +58,12 @@ function selectImpossibleSeat(event) {
 table{
 	margin:0 auto;
 }
+#screen tr td{
+	width:300px;
+	height:20px;
+	background-color: gray;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -71,6 +77,11 @@ table{
 	int maxCol=Integer.parseInt(String.valueOf(scrHallSeatList.get("SEATCOL")));//자리(1~8)까지 중 최대 값인 8을 받아옴.
 %>
 <br>
+
+<table id="screen">
+	<tr><td>Screen</td></tr>
+</table>
+<br><br>
 <%-- 예약이 있는 경우!~!! --%>
 <c:if test="${reservationCnt>0}">
 <table border=".3">

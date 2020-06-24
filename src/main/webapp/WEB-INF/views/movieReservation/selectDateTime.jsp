@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
        <%String contextPath= request.getContextPath(); %>
@@ -85,6 +86,10 @@ function makeTheaterListHTML(list){
      });
 	return theaterHTML;
 }
+
+function goBack(){
+	history.go(-1);
+}
 </script>
 </head>
 <body>
@@ -93,6 +98,12 @@ function makeTheaterListHTML(list){
  	</div>
 
 <input type="hidden" name = "user_id" value="${member.getMember_id()}">
+<%if(((List<Object>)request.getAttribute("movieDateList")).size()==0){%>
+	<h3>해당 상영관에 조회되는 일정이 없습니다!</h3>
+	<button onclick="goBack()">상영관 다시 선택</button>
+<%}
+else{
+%>
 
 <c:forEach var="movieDateList" items="${movieDateList}" varStatus="status">
 
@@ -107,6 +118,6 @@ function makeTheaterListHTML(list){
 	<input type="submit" value="좌석 선택">
 	
 </form>
-
+<%} %>
 </body>
 </html>

@@ -129,6 +129,7 @@ public class Movie1Controller {
 			movie1ServiceImpl.insertReservation(paramMap);
 			}else {
 				System.out.println("예약 불가능함.");
+				return "movieReservation/reservationErr";
 			}
 		//HashMap<String, String> confirmInfo=new HashMap<String, String>();
 		Map<String, Object> confirmInfo=movie1ServiceImpl.confirmInfo(paramMap);
