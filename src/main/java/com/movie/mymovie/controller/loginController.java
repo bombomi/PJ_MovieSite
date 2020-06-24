@@ -1,7 +1,9 @@
 package com.movie.mymovie.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +58,12 @@ public class loginController {
 //		
 //		return "redirect:/login/index";
 //	}
+	
+	//동의페이지 agreement.jsp
+	@RequestMapping(value = "/agreement")
+	public String agreement() {
+		return "login/agreement";
+	}
 	
 	// 회원가입 post
 	//@ResponseBody
@@ -137,29 +146,7 @@ public class loginController {
 		mv.setViewName("redirect:/main/index");
 		return mv; //main/index
 	}
-//	@RequestMapping(value = "/loginuser", method = RequestMethod.POST)
-//	public String login(HttpSession session, HttpServletRequest request, Model model, UserDto userDto) throws Exception{
-//		System.out.println(1);
-//		UserDto loginuser = loginDAO.getMemberById(userDto.getMember_id()); 
-//		System.out.println(2);
-//		if(loginuser == null ) {
-//			model.addAttribute("login", "1");
-//			return "login/main";
-//		}
-//		if(!loginuser.getMember_pwd().equals(userDto.getMember_pwd())) {
-//			System.out.println("loginuser.getUser_pwd() : " + loginuser.getMember_pwd());
-//			System.out.println("userDto.getUser_pwd() : " + userDto.getMember_pwd());
-//			
-//			model.addAttribute("login", "2");
-//			return "login/main";
-//		}
-//
-//		model.addAttribute("login", "0");
-//		model.addAttribute("uservo",loginuser);
-//		
-//		return "main/main";
-//	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) throws Exception {
 		session.invalidate();
@@ -167,30 +154,23 @@ public class loginController {
         return mv;
 		//return "redirect:/main/index";
 	}
-//	@RequestMapping(value = "/login/main", method = RequestMethod.GET)
-//	public String main(HttpServletRequest request, Model model){
-//		model.addAttribute("islogin", request.getParameter("islogin"));
-//		logger.info("url --> login/main");
-//		return "login/main";
-//	}
 	
+	// 아이디 찾기 페이지 
+	@RequestMapping(value = "/lookForId") 
+	public String lookForId() { 
+	return "/login/lookForId"; 
+	} 
 	
-	//아이디 찾기 lookForId.jsp
-	@RequestMapping(value = "/lookForId")
-	public String lookForId() {
-		return "login/lookForId";
-	}
+	// 비밀번호 찾기 페이지 
+	@RequestMapping(value = "/lookForPwd") 
+	public String lookForPwd() { 
+	return "/login/lookForPwd"; 
+	} 
 	
 	//아이디찾기성공결과 findId.jsp
 	@RequestMapping(value = "/findId")
 	public String findId() {
 		return "login/findId";
-	}
-	
-	//비밀번호 찾기 lookForPwd.jsp
-	@RequestMapping(value = "/lookForPwd")
-	public String lookForPwd() {
-		return "login/lookForPwd";
 	}
 	
 	//비밀번호찾기성공결과(비밀번호변경페이지) findPwd.jsp
@@ -199,115 +179,76 @@ public class loginController {
 		return "login/findPwd";
 	}
 	
-	//비밀번호변경성공페이지 chPwd.jsp
-	@RequestMapping(value = "/chPwd")
-	public String chPwd() {
-		return "login/chPwd";
+	// 아이디 찾기 
+	@RequestMapping(value = "/findId", method = RequestMethod.POST) 
+	public ModelAndView findId(@ModelAttribute UserDto userDto) throws Exception { 
+		ModelAndView mav = new ModelAndView(); 
+		List<UserDto> userList = service.findId(userDto); 
+		System.out.println(userList); 
+		mav.setViewName("/login/findId"); 
+		mav.addObject("userList", userList); 
+		return mav; 
 	}
 	
-	//동의페이지 agreement.jsp
-	@RequestMapping(value = "/agreement")
-	public String agreement() {
-		return "login/agreement";
+	 // 비밀번호 찾기 
+	@RequestMapping(value = "/findPwd", method = RequestMethod.POST) 
+	public ModelAndView findPwd(@ModelAttribute UserDto userDto) throws Exception { 
+		ModelAndView mav = new ModelAndView(); 
+		String pwd = service.findPwd(userDto); 
+		mav.setViewName("/login/findPwd"); 
+		mav.addObject("member_pwd", pwd); 
+		return mav; 
 	}
+	
+	//아이디 찾기 lookForId.jsp
+//	@RequestMapping(value = "/lookForId")
+//	public String lookForId() {
+//		return "login/lookForId";
+//	}
+	
+//	@RequestMapping(value = "/lookforId" , method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+//	public @ResponseBody String lookforId(@ModelAttribute UserDto userDto, Model model , HttpServletResponse response)throws Exception {
+//
+//		System.out.println(userDto.toString());
+//
+//
+//		ArrayList <String> idList = service.findId(userDto);
+//		System.out.println(idList.toString());
+//		System.out.println(idList.get(0));
+//		String findId = "{\"member_id\":\""+idList+"\"}";
+//
+//		System.out.println(findId);
+//
+//		return "findId";
+//	}
+	
+	//비밀번호 찾기 lookForPwd.jsp
+//	@RequestMapping(value = "/lookForPwd")
+//	public String lookForPwd() {
+//		return "login/lookForPwd";
+//	}
+	
+	//비밀번호변경성공페이지 chPwd.jsp
+//	@RequestMapping(value = "/chPwd")
+//	public String chPwd() {
+//		return "login/chPwd";
+//	}
 	
 	//회원가입페이지 newMemberForm.jsp
-	@RequestMapping(value = "newMemberForm")
-	public String newMemberForm() {
-		return "login/newMemberForm";
-	}
+//	@RequestMapping(value = "newMemberForm")
+//	public String newMemberForm() {
+//		return "login/newMemberForm";
+//	}
 	
 	//회원가입성공페이지 successNewMember.jsp
-	@RequestMapping(value = "successNewMember")
-	public String successNewMember() {
-		return "login/successNewMember";
-	}
-	
-	
-	
-//	@RequestMapping(value = "/needlogin", method = RequestMethod.GET)
-//	public String needlogin(HttpServletRequest request, Model model){
-//		
-//		return "login/needlogin";
-//	}
-	
-//	@RequestMapping(value = "/sign", method = RequestMethod.GET)
-//	public String sign(HttpServletRequest request, Model model){
-//		
-//		return "login/sign";
+//	@RequestMapping(value = "successNewMember")
+//	public String successNewMember() {
+//		return "login/successNewMember";
 //	}
 //	
-//	@RequestMapping(value = "/sign", method = RequestMethod.POST)
-//	public String signTry(HttpServletRequest request, Model model, UserDto userDto) throws Exception{
-//		loginDAO.insertMember(userDto);
-//		System.out.println("12");
-//		loginDAO.createMypage(userDto.getMember_nick());
-//		model.addAttribute("sign", "T");
-//		
-//		return "login/main";
-//	}
 	
-//	@RequestMapping(value = "/login/main", method = RequestMethod.POST)
-//	public String mainPost(HttpServletRequest request, Model model, UserDto userDto) throws Exception{
-//		System.out.println("update : " + userDto);
-//		loginDAO.userModifie(userDto);
-//		
-//		model.addAttribute("UserDto", userDto);
-//		return "login/main";
-//	}
-//	
-//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-//	public String logout(SessionStatus status, Model model){
-//		status.setComplete();
-//		if(status.isComplete()==true) {
-//			System.out.println("Session remove");
-//		}
-//		return "login/main";
-//	}
-//	
-//	@RequestMapping(value = "/loginuser", method = RequestMethod.POST)
-//	public String login(HttpSession session, HttpServletRequest request, Model model, UserDto tryuser) throws Exception{
-//		System.out.println(1);
-//		UserDto loginuser = loginDAO.getUserById(tryuser.getMember_id()); 
-//		System.out.println(2);
-//		if(loginuser == null ) {
-//			model.addAttribute("login", "1");
-//			return "login/main";
-//		}
-//		if(!loginuser.getMember_pwd().equals(tryuser.getMember_pwd())) {
-//			System.out.println("loginuser.getUser_pwd() : " + loginuser.getMember_pwd());
-//			System.out.println("tryuser.getUser_pwd() : " + tryuser.getMember_pwd());
-//			
-//			model.addAttribute("login", "2");
-//			return "login/main";
-//		}
-//
-//		model.addAttribute("login", "0");
-//		model.addAttribute("UserDto",loginuser);
-//		
-//		return "main/index";
-//	}
-//	//agreement
-//	@RequestMapping(value = "/sign", method = RequestMethod.GET)
-//	public String sign(HttpServletRequest request, Model model){
-//		
-//		return "login/sign";
-//	}
-//	@RequestMapping(value = "/sign", method = RequestMethod.POST)
-//	public String signTry(HttpServletRequest request, Model model, UserDto userDto) throws Exception{
-//		loginDAO.insertUser(userDto);
-//		System.out.println("12");
-//		loginDAO.createMypage(userDto.getMember_nick());
-//		model.addAttribute("sign", "T");
-//		
-//		return "login/main";
-//	}
-//	
-//	@RequestMapping(value = "/find", method = RequestMethod.GET)
-//	public String find(HttpServletRequest request, Model model){
-//		model.addAttribute("findby",request.getParameter("findby"));
-//		return "login/find";
-//	}
+	
+
 //	@RequestMapping(value = "/findbyid", method = RequestMethod.POST)
 //	public String findbyid(HttpServletRequest request, Model model, UserDto userDto) throws Exception{
 //		model.addAttribute("findby","id");
@@ -338,33 +279,6 @@ public class loginController {
 //				return "login/find";
 //			}
 //		}
-//	}
-//	
-//	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
-//	public void idcheck(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception{
-//		String id = request.getParameter("id");
-//		List<String> idList = loginDAO.getUserIDList();  
-//		JsonObject jsonObject = new JsonObject();
-//		jsonObject.addProperty("idcheck", loginservice.idCheck(id));
-//		System.out.println("loginservice.idCheck(id) : " + loginservice.idCheck(id));
-//		jsonObject.addProperty("idoverlapcheck", loginservice.OverlapCheck(id, idList));
-//		System.out.println("loginservice.idOverlapCheck(id, idList) : " + loginservice.OverlapCheck(id, idList));
-//		jsonObject.addProperty("lengthcheck", loginservice.lengthCheck(id, 8));
-//		httpServletResponse.getWriter().print(jsonObject.toString());
-//		
-//	}
-//	@RequestMapping(value = "/nickcheck", method = RequestMethod.POST)
-//	public void nickcheck(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception{
-//		String nick = request.getParameter("nick");
-//		List<String> nickList = loginDAO.getUserNickList();
-//		JsonObject jsonObject = new JsonObject();
-//		jsonObject.addProperty("nickcheck", loginservice.nickCheck(nick));
-//		System.out.println("loginservice.idCheck(id) : " + loginservice.idCheck(nick));
-//		jsonObject.addProperty("nickoverlapcheck", loginservice.OverlapCheck(nick, nickList));
-//		System.out.println("loginservice.nickOverlapCheck(id, idList) : " + loginservice.OverlapCheck(nick, nickList));
-//		jsonObject.addProperty("lengthcheck", loginservice.lengthCheck(nick, 8));
-//		httpServletResponse.getWriter().print(jsonObject.toString());
-//		
 //	}
 //	
 

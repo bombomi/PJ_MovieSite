@@ -17,8 +17,16 @@
 <body>
 	비밀번호 찾는 페이지
 	<hr width = "80%">
-	아이디, 이메일 입력값이 조건과 다르다면 경고창<br>
-	맞다면 비밀번호찾기(변경)페이지로<a href = "<%= contextPath %>/findPwd" method = "post">이동</a>
+	<form action = "<%=contextPath %>/login/findPwd" method = "post">
+	<br><br>
+		ID : <input type = "text" name = "member_id" id = "member_id"><br>
+		EMAIL : <input type="text" name="member_email" id="member_email">
+		<input type="text" name="member_email2" id="member_email2"><br>
+	
+	<input type = "submit" value = "비밀번호찾기" id="findPwd">
+	</form>
+	<br>
+	<br>
 	
 	<br><br>
 	<a href = "<%= contextPath %>/login" method = "post">로그인 페이지</a>

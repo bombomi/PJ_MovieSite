@@ -116,7 +116,7 @@ result
 <div id="result"></div>
 <br>
 <input type="hidden" name="member_id" value="test">
-<input type="hidden" name="movie_id" value="1">
+<input type="hidden" name="movie_id" value="20183813">
 <input type="submit" value="날짜, 시간 선택">
 
 </form>

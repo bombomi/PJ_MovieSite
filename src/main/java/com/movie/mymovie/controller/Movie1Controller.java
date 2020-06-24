@@ -31,7 +31,7 @@ public class Movie1Controller {
 		//앞선 영화 상세정보 페이지에서 받아온 영화 아이디값으로
 		//상영정보 테이블에서 영화관 주소목록을 불러온다. 
 		//화면에 표시하는 건 아직 안함.. ㅎㅎㅎ
-		String movie_id="1";
+		String movie_id="20183813";
 		List<TheaterDto> placeList = movie1ServiceImpl.selectPlaceByMovie(movie_id);
 		model.addAttribute(placeList);
 		return "movieReservation/selectPlace";
@@ -56,9 +56,10 @@ public class Movie1Controller {
 	//rendering view 'selectDateTime'
 	@RequestMapping(value="/selectDateTime",method=RequestMethod.GET)
 	public String selectDateTime
-	(@RequestParam HashMap<String, String> paramMap, Model model) {
+	(@RequestParam HashMap<String, Object> paramMap, Model model) {
+		System.out.println("movieId????"+paramMap.get("movie_id"));
 		List<TimeTableDto> movieDateList = movie1ServiceImpl.selectDateByTheaterAndMovie(paramMap);
-		System.out.println("movlieDateList?"+movieDateList);
+		System.out.println("movieDateList?"+movieDateList);
 		model.addAttribute("movieDateList", movieDateList);
 		model.addAttribute("theater_id", paramMap.get("theater_id"));
 		return "movieReservation/selectDateTime";
@@ -121,12 +122,19 @@ public class Movie1Controller {
 		int scrhall_id=Integer.parseInt(String.valueOf(((String)paramMap.get("scrhallSeat_id")).substring(2, 4)));
 		paramMap.put("theater_id", theater_id);
 		paramMap.put("scrhall_id", scrhall_id);
+		//예매 가능한지 검사함.
+		boolean reservedYn=movie1ServiceImpl.checkReserved(paramMap);
+		if(reservedYn==true) {
+			movie1ServiceImpl.insertReservation(paramMap);
+			}else {
+				System.out.println("예약 불가능함.");
+			}
+		//HashMap<String, String> confirmInfo=new HashMap<String, String>();
+		Map<String, Object> confirmInfo=movie1ServiceImpl.confirmInfo(paramMap);
+		System.out.println(confirmInfo);
+		model.addAttribute("confirmInfo",confirmInfo);
 
-		System.out.println("timetable_id"+(String)paramMap.get("timetable_id"));
-		System.out.println("scrhall_id"+scrhall_id);
-		System.out.println("payPlan"+(String)paramMap.get("payPlan"));
-		
-		movie1ServiceImpl.insertReservation(paramMap);
+		model.addAttribute("paramMap", paramMap);
 		return "movieReservation/reservationConfirm";
 	}
 

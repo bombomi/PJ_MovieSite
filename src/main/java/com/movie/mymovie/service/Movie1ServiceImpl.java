@@ -25,7 +25,7 @@ public class Movie1ServiceImpl {
 		return movie1DAOImpl.selectTheaterByAddr(theater_addr);
 	}
 	
-	public List<TimeTableDto> selectDateByTheaterAndMovie(HashMap<String, String> paramMap){
+	public List<TimeTableDto> selectDateByTheaterAndMovie(HashMap<String, Object> paramMap){
 		return movie1DAOImpl.selectDateByTheaterAndMovie(paramMap);
 	}
 	
@@ -42,5 +42,10 @@ public class Movie1ServiceImpl {
 	public void insertReservation(HashMap<String, Object> paramMap){
 		movie1DAOImpl.insertReservation(paramMap);
 	};
-
+	public boolean checkReserved(HashMap<String, Object> paramMap) {
+		return movie1DAOImpl.checkReserved(paramMap);
+	};
+	public Map<String, Object> confirmInfo(HashMap<String, Object> paramMap){
+		return movie1DAOImpl.confirmInfo(paramMap);
+	};
 }

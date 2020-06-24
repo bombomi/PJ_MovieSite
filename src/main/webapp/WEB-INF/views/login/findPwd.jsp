@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><%-- JSTL Core --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %><%-- JSTL Function --%>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -18,9 +20,9 @@
 	비밀번호찾은페이지(찾았으니 변경가능)
 	<hr width = "80%">
 	
-	비밀번호 입력 / 비밀번호 재입력<br>
-	저 두 값이 일치하면 비밀번호변경 성공<br>
-	변경성공 페이지로 <a href = "<%= contextPath %>/chPwd" method = "post">이동</a>
+	PASSWORD : <c:forEach var = "UserDto" items = "${pwd}">
+			${UserDto.pwd}
+	 	</c:forEach>
 	
 	<br><br>
 	<a href = "<%= contextPath %>/login" method = "post">로그인 페이지</a>

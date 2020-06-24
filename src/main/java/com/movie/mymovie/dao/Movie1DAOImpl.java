@@ -39,7 +39,7 @@ public class Movie1DAOImpl implements Movie1DAO{
 
 	}
 	@Override
-	public List<TimeTableDto> selectDateByTheaterAndMovie(HashMap<String, String> paramMap){
+	public List<TimeTableDto> selectDateByTheaterAndMovie(HashMap<String, Object> paramMap){
 	List<TimeTableDto> theaterDtoList=new ArrayList<TimeTableDto>();
 	
 	theaterDtoList=sqlSession.selectList(
@@ -84,6 +84,24 @@ public class Movie1DAOImpl implements Movie1DAO{
 
 		sqlSession.insert("Movie1Mapper.insertReservation" , paramMap);
 	}
-
+	@Override
+	public boolean checkReserved(HashMap<String, Object> paramMap) {
+		Object obj=sqlSession.selectOne("Movie1Mapper.checkReserved",paramMap);
+		boolean existReservation;
+		if(obj==null) {
+			existReservation=true;
+		}else
+			existReservation=false;
+		return existReservation;
+	}
+	@Override	
+	public Map<String, Object> confirmInfo(HashMap<String, Object> paramMap)
+	{
+		Map<String, Object> confirmInformation=new HashMap<String, Object>();
+		
+		confirmInformation=sqlSession.selectOne(
+				"Movie1Mapper.confirmInfo", paramMap);
+		return confirmInformation;			 
+	}
 
 }
