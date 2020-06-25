@@ -33,7 +33,9 @@
               </c:if>
               
               <a href="<%=contextPath %>/BoardList">Community</a>
+              <c:if test = '<%= session.getAttribute("member") != null %>'>
               <a href="<%=contextPath %>/myPage" >My Page</a>
+              </c:if>
             </div>
           </div>
         </div>
