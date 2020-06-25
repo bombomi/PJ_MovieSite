@@ -139,12 +139,6 @@ public class Movie1Controller {
 		model.addAttribute("paramMap", paramMap);
 		return "movieReservation/reservationConfirm";
 	}
-	
-	@RequestMapping(value="/test", method=RequestMethod.GET)
-	public String linkTest(@RequestParam(value="test") String test) {
-		System.out.println(test);
-		return "main/index";
-	}
 
 	
 }
