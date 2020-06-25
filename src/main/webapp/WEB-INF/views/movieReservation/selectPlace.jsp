@@ -56,9 +56,9 @@ $(document).ready(function(){
 	        	        $("#result").html(resultHTML);
 
 	        	        
-	        	 	   $("input[type='checkbox'][name='theater']").click(function(){
+	        	 	   $("input[type='checkbox'][name='theater_id']").click(function(){
 	        		        if($(this).prop('checked')){
-	        		        	$('input[type="checkbox"][name="theater"]').prop('checked',false);
+	        		        	$('input[type="checkbox"][name="theater_id"]').prop('checked',false);
 	        		        	$(this).prop('checked', true);
 	        		        }});
 
