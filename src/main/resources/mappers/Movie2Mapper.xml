@@ -5,5 +5,10 @@
 
 <mapper namespace="Movie2Mapper">
 
+	<select id="selectMovieInfo" resultType="com.movie.mymovie.dto.MovieInfoDto" parameterType="String">
+	SELECT MOVIE_ID ,MOVIE_TITLE, RUNTIME, GENRE, RANK, ACTORS, NATION
+	FROM MOVIE
+	WHERE MOVIE_ID = #{movieCd}
+	</select>
 	
 </mapper>

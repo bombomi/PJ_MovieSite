@@ -107,7 +107,7 @@ public class Movie1Controller {
 		if(reservationList.size()>0) {
 			model.addAttribute("reservationIdList",reservationIdList);}
 		return "movieReservation/selectSeat2";
-	}
+	} 
 	
 	@RequestMapping(value="/pay",method=RequestMethod.POST)
 	public String pay(@RequestParam HashMap<String, Object> paramMap, Model model) {

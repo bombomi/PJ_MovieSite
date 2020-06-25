@@ -1,7 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+ 
+ <%@ page import="kr.or.kobis.kobisopenapi.consumer.rest.KobisOpenAPIRestService" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="org.codehaus.jackson.map.ObjectMapper"%>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Collection"%>
+<%@ page import="net.sf.json.JSONObject"%>
+<%@ page import="net.sf.json.util.JSONBuilder"%>
+<%@ page import="net.sf.json.JSONArray"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ 
+
  <%String contextPath=request.getContextPath(); %>      
+
+<%
+ 
+ //파라미터 설정
+ //조회일자
+ String targetDt =request.getParameter("targetDt")==null?"20200622":request.getParameter("targetDt");
+ //결과 row수
+ String itemPerPage = request.getParameter("itemPerPage")==null?"10":request.getParameter("itemPerPage");
+ //"Y" -> 다양성 영화 "N" -> 상업영화 (default : 전체)
+ String multiMovieYn = request.getParameter("multiMovieYn")==null?"":request.getParameter("multiMovieYn");
+ //"k" -> 한국영화 "F" -> 외국영화
+ String repNationCd = request.getParameter("repNationCd")==null?"":request.getParameter("repNationCd");
+ //"0105000000"로서 조회된 지역코드
+ String wideAreaCd = request.getParameter("wideAreaCd")==null?"":request.getParameter("wideAreaCd");
+ 
+ String movieCd = request.getParameter("movieCd")==null?"20124079":request.getParameter("movieCd");
+ 
+ 
+ 
+ //발급키
+ String key = "71ef7d891cd64e00c28e4d8f88b9c00c";
+ 
+ KobisOpenAPIRestService service = new KobisOpenAPIRestService(key);
+ 
+ String movieResponse = service.getMovieInfo(true, movieCd);
+ String dailyResponse = service.getDailyBoxOffice(true, targetDt, itemPerPage, multiMovieYn, repNationCd, wideAreaCd);
+ ObjectMapper mapper = new ObjectMapper();
+ HashMap<String, Object> dailyResult = mapper.readValue(dailyResponse, HashMap.class);
+ HashMap<String, String> movieResult = mapper.readValue(movieResponse, HashMap.class);
+ 
+ request.setAttribute("movieResult", movieResult);
+ 
+ 
+ request.setAttribute("dailyResult", dailyResult);
+ String codeResponse = service.getComCodeList (true,"0105000000");
+ HashMap<String,Object> codeResult = mapper.readValue(codeResponse, HashMap.class);
+ request.setAttribute("codeResult", codeResult);
+ 
+ 
+ %> 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,9 +99,12 @@
 </head>
 <body>
 
-	<div class="head">
-		<jsp:include page="../head.jsp"></jsp:include>
-	</div>
+   <div class="head">
+      <jsp:include page="../head.jsp"></jsp:include>
+   </div>
+
+
+<form action="<%=contextPath %>/selectMovieInfo" method="get">
 
 
   <main id="main">
@@ -54,64 +113,197 @@
       <div class="container">
 
         <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
+          
+          
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="0" end="0">
+   
+          
           <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="<%=contextPath %>/movieInfo" class="item-wrap fancybox">
+            <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
               <div class="work-info">
-                <h3>기생충</h3>
+                <h3><c:out value="${boxoffice.movieNm}"/></h3>
                 <span>영화 정보 보기</span>
               </div>
-              <img class="img-fluid" src="<%=request.getContextPath() %>/images/poster1.jpg">
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
             </a>
           </div>
+         
+         </c:forEach>
+         </c:if>
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="1" end="1">
+   
+         
+         
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single.html" class="item-wrap fancybox">
+            <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
               <div class="work-info">
-                <h3>Build Indoo</h3>
-                <span>Photography</span>
+                    <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
               </div>
-              <img class="img-fluid" src="<%=request.getContextPath() %>/images/img_2.jpg">
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
             </a>
           </div>
+          
+            </c:forEach>
+         </c:if>
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="2" end="2">
+   
+          
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single.html" class="item-wrap fancybox">
+            <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
               <div class="work-info">
-                <h3>Cocooil</h3>
-                <span>Branding</span>
+                  <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
               </div>
-              <img class="images-fluid" src="<%=request.getContextPath() %>/images/img_3.jpg">
+              <img class="images-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
             </a>
           </div>
+         
+              </c:forEach>
+         </c:if>
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="3" end="3">
+   
+         
           <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single.html" class="item-wrap fancybox">
-              <div class="work-info">
-                <h3>Nike Shoe</h3>
-                <span>Design</span>
+           <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
+               <div class="work-info">
+                  <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
               </div>
-              <img class="img-fluid" src="<%=request.getContextPath() %>/images/img_4.jpg">
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
             </a>
           </div>
+    
+    
+         </c:forEach>
+         </c:if>
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="4" end="4">
+   
+    
+    
+    
           <div class="item photography col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single.html" class="item-wrap fancybox">
-              <div class="work-info">
-                <h3>Kitchen Sink</h3>
-                <span>Photography</span>
+          <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
+                <div class="work-info">
+                  <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
               </div>
-              <img class="img-fluid" src="<%=request.getContextPath() %>/images/img_5.jpg">
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
             </a>
           </div>
+          
+               </c:forEach>
+         </c:if>
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="5" end="5">
+   
+          
           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
-            <a href="work-single.html" class="item-wrap fancybox">
+            <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
               <div class="work-info">
-                <h3>Amazon</h3>
-                <span>brandign</span>
+                 <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
               </div>
-              <img class="img-fluid" src="<%=request.getContextPath() %>/images/img_6.jpg">
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
             </a>
           </div>
+          
+               </c:forEach>
+         </c:if>
+         
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="6" end="6">
+   
+           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
+           <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
+               <div class="work-info">
+                    <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
+              </div>
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
+            </a>
+          </div>
+          
+                        </c:forEach>
+         </c:if>
+         
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="7" end="7">
+   
+           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
+           <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
+               <div class="work-info">
+                   <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
+              </div>
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
+            </a>
+          </div>
+          
+          
+          
+                         </c:forEach>
+         </c:if>
+         
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="8" end="8">
+   
+           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
+            <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
+              <div class="work-info">
+                   <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
+              </div>
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
+            </a>
+          </div>
+          
+          
+          
+                         </c:forEach>
+         </c:if>
+         
+         
+<c:if test ="${not empty dailyResult.boxOfficeResult.dailyBoxOfficeList }"> 
+   <c:forEach items="${dailyResult.boxOfficeResult.dailyBoxOfficeList}" var="boxoffice" begin="9" end="9">
+   
+           <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
+         <a href="<%=contextPath %>/selectMovieInfo?movieCd=${boxoffice.movieCd}" class="item-wrap fancybox" name="selectMovieInfo" value="${boxoffice.movieCd}">
+                 <div class="work-info">
+                    <h3><c:out value="${boxoffice.movieNm}"/></h3>
+                <span>영화 정보 보기</span>
+              </div>
+              <img class="img-fluid" src="<%=request.getContextPath() %>/images/${boxoffice.movieCd}.jpg">
+            </a>
+          </div>
+          
+          
+          
+                         </c:forEach>
+         </c:if>
+         
+         
+ 
+          
         </div>
       </div>
     </div>
-
+    
+</form>
+         
     <div class="site-section">
       <div class="container">
         <div class="row justify-content-center text-center mb-4">
@@ -280,4 +472,3 @@
 
 </body>
 
-</html>
