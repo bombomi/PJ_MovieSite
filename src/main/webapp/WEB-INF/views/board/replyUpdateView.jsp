@@ -15,7 +15,7 @@
 		
 		$(".cancel_btn").on("click", function(){
 			window.history.back();
-		})s
+		})
 		
 	});
 </script>

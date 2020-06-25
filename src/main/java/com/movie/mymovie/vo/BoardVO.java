@@ -8,6 +8,7 @@ public class BoardVO {
 	private String board_content;	// 글 내용
 	private int read_cnt;			// 조회수
 	private String reg_date;		// 작성일
+	private int recnt;				// 게시글 댓글 수 추가
 	
 	// 생성자
 	public BoardVO() {
@@ -63,5 +64,17 @@ public class BoardVO {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
+
+
+	public int getRecnt() {
+		return recnt;
+	}
+
+
+	public void setRecnt(int recnt) {
+		this.recnt = recnt;
+	}
+	
+	
 
 }
