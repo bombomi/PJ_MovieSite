@@ -24,78 +24,47 @@
 	function no(){
 		  history.back();
 		 }
-
-// $(document).ready(function() {
-	
-// 	function radio_chk() {
-//         //라디오 버튼 Name 가져오기
-//         var agreement = document.getElementsByName("agreement");
- 
-//         //라디오 버튼이 체크되었나 확인하기 위한 변수
-//         var radio_btn_check = 0;
-//         for(var i = 0; i<radio_btn.length; i++){
-//             //만약 라디오 버튼이 체크가 되어있다면 true
-//             if(agreement[i].checked==true){
-//                 //라디오 버튼 값
-//                 alert(radio_btn[i].value);
-//                 //라디오 버튼이 체크되면 radio_btn_check를 1로 만들어준다.
-//                 radio_btn_check++;
-//             }
-//         }
-        
-//         if(radio_btn_check==0){
-//             alert("약관에 동의해주세요.");
-//             return;
-//         }
-//     }
-	
-// 	$("#cancle").on("click", function(){
-// 		location.href = "/mymovie/login";
-// 	}); 
-//	
-// 	$("#submit").on("click", function(){
-// 		if($("input:radio[name='agreement1']").is(":checked") == true) {
-//			
-// 			var agreement1_no = $(":input:radio[name = agreement1]:cheched").val();
-// 			if(agreement1_no == 'no'){
-// 				alert("이용약관에 동의해주세요.");
-// 				return false;
-// 			}
-// 			alert("이용약관에 동의해주세요.");
-// 			$("#agreement1").focus();
-// 			return false;
-// 		}
-// 		if($("#agreement2").val()== "") {
-// 			alert("개인 정보 수집 및 이용 약관에 동의해주세요.");
-// 			$("#agreement2").focus();
-// 			return false;
-// 		}
-// 		if($("#agreement3").val()== "") {
-// 			alert("위치 정보 이용 약관에 동의해주세요.");
-// 			$("#agreement3").focus();
-// 			return false;
-// 		}
-// 		function Click(){
-//
-// 			  if($("input:radio[name='agreement1']").is(":checked")==true){ // if 시작
-//			  
-// 			      var agreement1_no = $(":input:radio[name=agreement1]:checked").val();
-// 			      if(agreement1_no=='no'){
-// 			        alert('이용약관에 동의해주세요.');
-// 			        return false;
-// 			      }
-//			    
-// 			  }
-//
-//		}
-//		
-// 	});
-//});
 </script>
 <title>Insert title here</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="<%=request.getContextPath() %>/images/favicon.png" rel="icon">
+  <link href="<%=request.getContextPath() %>/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Raleway:400,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="<c:url value ='/css/bootstrap.min.css'/>" rel="stylesheet">
+
+
+
+  <!-- Vendor CSS Files -->
+  <link href="<c:url value ='/vendor/icofont/icofont.min.css'/>" rel="stylesheet">
+  <link  href="<c:url value ='/vendor/line-awesome/css/line-awesome.min.css'/>" rel="stylesheet">
+  <link  href="<c:url value ='/vendor/aos/aos.css'/>" rel="stylesheet">
+  <link href="<c:url value ='/vendor/owlcarousel/assets/owl.carousel.min.css'/>" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="<c:url value ='/css/style.css'/>" rel="stylesheet">
+  
+
+  <!-- =======================================================
+    Template Name: MyPortfolio
+    Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com/
+  ======================================================= -->
 <style>
 	body {
 		text-align: center;
+	}
+	.navbar-brand {
+		font-size: 10px;
 	}
 </style>
 </head>
@@ -379,5 +348,18 @@ QR코드 등록 정보:삭제 시점으로부터6개월 보관
 	<button class = "cancle btn btn-danger" type = "button" name = "cancle" id = "cancle" onclick="no();">취소</button>
 	</div>
 	</form>
+	<!-- Vendor JS Files -->
+  <script type="text/javascript" src="<c:url value ='/vendor/jquery/jquery.min.js'/>"/></script>
+  <script type="text/javascript" src="<c:url value ='/vendor/jquery/jquery-migrate.min.js'/>"/></script>
+  <script type="text/javascript" src="<c:url value ='/vendor/bootstrap/js/bootstrap.min.js'/>"/></script>
+  <script type="text/javascript" src="<c:url value ='/vendor/easing/easing.min.js'/>"/></script>
+  <script type="text/javascript" src="<c:url value ='/vendor/php-email-form/validate.js'/>"/></script>
+  <script type="text/javascript" src="<c:url value ='/vendor/isotope/isotope.pkgd.min.js'/>"/></script>
+  <script type="text/javascript" src="<c:url value ='/vendor/aos/aos.js'/>"/></script>
+  <script type="text/javascript" src="<c:url value ='/vendor/owlcarousel/owl.carousel.min.js'/>"/></script>
+  
+
+  <!-- Template Main JS File -->
+  <script type="text/javascript" src="<c:url value ='/js/main.js'/>"/></script>
 </body>
 </html>

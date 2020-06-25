@@ -126,9 +126,9 @@ html, body {
 				<!-- 				<br> -->
 				<!-- 				<div onclick="loadPage(0)">정보수정</div> -->
 				<br> <br>
-				<div onclick="loadPage(1)">예매내역</div>
+<!-- 				<div onclick="loadPage(1)">예매내역</div> -->
 				<br> <br>
-				<div onclick="loadPage(2)">내가 쓴 글</div>
+<!-- 				<div onclick="loadPage(2)">내가 쓴 글</div> -->
 				<br> <br> <br> <br> <br>
 				<div onclick="signout()">회원탈퇴</div>
 			</div>
